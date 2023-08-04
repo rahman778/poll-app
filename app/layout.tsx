@@ -1,8 +1,10 @@
-import "./globals.css";
 import type { Metadata } from "next";
-import { Inter } from "next/font/google";
+import { Poppins } from "next/font/google";
+import "@/app/globals.css";
+import Providers from "@/app/Providers";
+import ThemeButton from "@/app/components/Buttons/ThemeButton";
 
-const inter = Inter({ subsets: ["latin"] });
+const poppins = Poppins({ weight: ["400", "700"], subsets: ["latin"] });
 
 export const metadata: Metadata = {
    title: "SnapPoll",
@@ -10,10 +12,19 @@ export const metadata: Metadata = {
       "Engage in meaningful polls and surveys on SnapPoll. Cast your vote, express your opinions, and see real-time results. Join the community and make your voice heard!",
 };
 
-export default function RootLayout({ children }: { children: React.ReactNode }) {
+export default function RootLayout({
+   children,
+}: {
+   children: React.ReactNode;
+}) {
    return (
-      <html lang="en">
-         <body className={inter.className}>{children}</body>
+      <html lang="en" suppressHydrationWarning>
+         <body className={`${poppins.className} bg-slate-50 dark:bg-[#111827]`}>
+            <Providers>
+               <ThemeButton />
+               <main>{children}</main>
+            </Providers>
+         </body>
       </html>
    );
 }
