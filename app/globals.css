@@ -2,3 +2,16 @@
 @tailwind components;
 @tailwind utilities;
 
+@layer components {
+   .button {
+     @apply inline-flex cursor-pointer items-center justify-center rounded-md border border-transparent py-2 px-4 text-sm font-medium;
+   }
+
+   .primary-btn {
+     @apply text-gray-100 bg-teal-600 hover:bg-teal-700;
+   }
+
+   .transparent-btn { 
+    @apply text-gray-600 dark:text-gray-400 hover:text-teal-600 dark:hover:text-teal-600 font-medium;
+  }
+}

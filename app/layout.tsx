@@ -2,9 +2,10 @@ import type { Metadata } from "next";
 import { Poppins } from "next/font/google";
 import "@/app/globals.css";
 import Providers from "@/app/Providers";
-import ThemeButton from "@/app/components/Buttons/ThemeButton";
+import ThemeButton from "@/components/Buttons/ThemeButton";
+import Navbar from "@/components/Navigation/Navbar";
 
-const poppins = Poppins({ weight: ["400", "700"], subsets: ["latin"] });
+const poppins = Poppins({ weight: ["400", "500", "700"], subsets: ["latin"] });
 
 export const metadata: Metadata = {
    title: "SnapPoll",
@@ -19,8 +20,9 @@ export default function RootLayout({
 }) {
    return (
       <html lang="en" suppressHydrationWarning>
-         <body className={`${poppins.className} bg-slate-50 dark:bg-[#111827]`}>
+         <body className={`${poppins.className} bg-[#EDF2F7] dark:bg-[#2D3748]`}>
             <Providers>
+               <Navbar />
                <ThemeButton />
                <main>{children}</main>
             </Providers>
