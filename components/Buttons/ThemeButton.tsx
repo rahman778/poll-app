@@ -14,14 +14,13 @@ function ThemeButton() {
 
    return (
       <button
-         //className={`w-fit absolute right-5 top-2 p-2 rounded-md hover:scale-110 active:scale-100 duration-200 bg-slate-200 dark:bg-[#212933]`}
-         className="flex items-center justify-center rounded-lg p-2 bg-slate-200 dark:bg-[#212933] transition-colors hover:bg-zinc-100 dark:hover:bg-zinc-700"
+         className="flex items-center justify-center rounded-md p-2 hover:bg-gray-100 dark:hover:bg-gray-700"
          onClick={() => setTheme(resolvedTheme === "dark" ? "light" : "dark")}
       >
          {resolvedTheme === "dark" ? (
             <SunIcon className="h-5 w-5 text-orange-300" />
          ) : (
-            <MoonIcon className="h-5 w-5 text-slate-800" />
+            <MoonIcon className="h-5 w-5 text-gray-800" />
          )}
       </button>
    );
