@@ -1,5 +1,7 @@
 import Link from "next/link";
 
+import ThemeButton from "@/components/Buttons/ThemeButton";
+
 import { Route } from "./Navbar";
 
 type Props = {
@@ -31,19 +33,22 @@ function DesktopNavbar({ children, routes }: Props) {
                      ))}
                   </div>
                </div>
-               <div className="hidden lg:ml-4 lg:flex lg:items-center">
-                  <div className="flex items-center space-x-3 ">
-                     <Link href="" className="button transparent-btn">
-                        Login
-                     </Link>
-                     <Link href="" className="button primary-btn">
-                        Signup
-                     </Link>
+               <div className="flex items-center ">
+                  <ThemeButton />
+                  <div className="hidden lg:ml-2 lg:flex lg:items-center">
+                     <div className="flex items-center space-x-3 ">
+                        <Link href="" className="button transparent-btn">
+                           Login
+                        </Link>
+                        <Link href="" className="button primary-btn">
+                           Signup
+                        </Link>
+                     </div>
                   </div>
-               </div>
-               {/* Mobile button */}
-               <div className="flex items-center px-2 lg:hidden">
-                  {children}
+                  {/* Mobile button */}
+                  <div className="flex items-center px-2 lg:hidden">
+                     {children}
+                  </div>
                </div>
             </div>
          </div>
