@@ -22,13 +22,13 @@ const routes: Route[] = [
       id: 1,
       label: "Create Poll",
       path: "",
-      icon: <ChartPieIcon className="h-5 w-5 text-teal-500 flex-shrink" />,
+      icon: <ChartPieIcon className="h-5 w-5 text-violet-500 flex-shrink" />,
    },
    {
       id: 2,
       label: "Schedule Meeting",
       path: "",
-      icon: <CalendarDaysIcon className="h-5 w-5 text-teal-500 flex-shrink" />,
+      icon: <CalendarDaysIcon className="h-5 w-5 text-violet-500 flex-shrink" />,
    },
 ];
 
@@ -65,7 +65,7 @@ function Navbar({}: Props) {
          <DesktopNavbar routes={routes}>
             <button
                onClick={() => setIsOpen((prev) => !prev)}
-               className="inline-flex items-center justify-center p-2 rounded-md text-gray-400 hover:text-gray-500 hover:bg-gray-100 dark:hover:text-gray-200 dark:hover:bg-gray-700 focus:outline-none focus:ring-2 focus:ring-inset focus:ring-teal-500"
+               className="inline-flex items-center justify-center p-2 rounded-md text-gray-400 hover:text-gray-500 hover:bg-gray-100 dark:hover:text-gray-200 dark:hover:bg-gray-700 focus:outline-none focus:ring-2 focus:ring-inset focus:ring-violet-500"
             >
                <svg
                   xmlns="http://www.w3.org/2000/svg"
@@ -99,7 +99,7 @@ function Navbar({}: Props) {
                      <div className="-mr-2">
                         <button
                            onClick={() => setIsOpen((prev) => !prev)}
-                           className="bg-white dark:bg-gray-800 rounded-md p-1.5 inline-flex items-center justify-center text-gray-400 dark:hover:text-gray-200 dark:hover:bg-gray-700 hover:bg-gray-100 focus:outline-none focus:ring-2 focus:ring-inset focus:ring-teal-500"
+                           className="bg-white dark:bg-gray-800 rounded-md p-1.5 inline-flex items-center justify-center text-gray-400 dark:hover:text-gray-200 dark:hover:bg-gray-700 hover:bg-gray-100 focus:outline-none focus:ring-2 focus:ring-inset focus:ring-violet-500"
                         >
                            <XMarkIcon className="w-6 h-6" />
                            <span className="sr-only">Close menu</span>
@@ -146,7 +146,7 @@ function Navbar({}: Props) {
                   <div>
                      <Link
                         href=""
-                        className="w-full flex items-center justify-center px-4 py-2 border border-transparent rounded-md shadow-sm text-base font-medium text-white bg-teal-600 hover:bg-teal-700"
+                        className="w-full flex items-center justify-center px-4 py-2 border border-transparent rounded-md shadow-sm text-base font-medium text-white bg-violet-600 hover:bg-violet-700"
                      >
                         Signup
                      </Link>

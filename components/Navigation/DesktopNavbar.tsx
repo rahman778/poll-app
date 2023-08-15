@@ -12,9 +12,9 @@ type Props = {
 function DesktopNavbar({ children, routes }: Props) {
    return (
       <nav className="sticky bg-white dark:bg-gray-900 shadow-sm ring-1 ring-gray-300 dark:ring-gray-700">
-         <div className="max-w-7xl 2xl:max-w-screen-2xl mx-auto px-2 sm:px-4 lg:px-8 2xl:px-12">
+         <div className="max-w-7xl 2xl:max-w-screen-2xl mx-auto px-4 sm:px-6 lg:px-8 2xl:px-12">
             <div className="flex justify-between h-16">
-               <div className="flex truncate px-2 lg:px-0">
+               <div className="flex truncate">
                   <Link
                      href="/"
                      className="flex items-center flex-shrink-0 text-gray-700 dark:text-gray-200"
@@ -46,7 +46,7 @@ function DesktopNavbar({ children, routes }: Props) {
                      </div>
                   </div>
                   {/* Mobile button */}
-                  <div className="flex items-center px-2 lg:hidden">
+                  <div className="flex items-center px-2 ml-2 lg:hidden">
                      {children}
                   </div>
                </div>
