@@ -1,4 +1,5 @@
 import Image from "next/image";
+import Link from "next/link";
 
 export default function Home() {
    return (
@@ -15,9 +16,9 @@ export default function Home() {
                   your thoughts, and witness the immediate impact of your
                   opinions.
                </p>
-               <button className="button primary-btn px-5 mt-8 lg:mt-10">
+               <Link href="/create" className="button primary-btn px-5 mt-8 lg:mt-10">
                   Create a poll
-               </button>
+               </Link>
             </div>
             <div className="mx-auto mt-8 lg:mt-0 bg-indigo-100 dark:bg-[#2D3748] rounded-md">
                <Image

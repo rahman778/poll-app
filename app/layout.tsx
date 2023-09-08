@@ -5,7 +5,7 @@ import Providers from "@/app/Providers";
 
 import Navbar from "@/components/Navigation/Navbar";
 
-const poppins = Poppins({ weight: ["400", "500", "700"], subsets: ["latin"] });
+const poppins = Poppins({ weight: ["400", "500","600", "700"], subsets: ["latin"] });
 
 export const metadata: Metadata = {
    title: "SnapPoll",

@@ -37,10 +37,10 @@ function DesktopNavbar({ children, routes }: Props) {
                   <ThemeButton />
                   <div className="hidden lg:ml-2 lg:flex lg:items-center">
                      <div className="flex items-center space-x-3 ">
-                        <Link href="" className="button transparent-btn">
+                        <Link href="/" className="button transparent-btn">
                            Login
                         </Link>
-                        <Link href="" className="button primary-btn">
+                        <Link href="/" className="button primary-btn">
                            Signup
                         </Link>
                      </div>
