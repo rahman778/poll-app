@@ -11,6 +11,10 @@
       @apply text-gray-100 bg-violet-600 hover:bg-violet-700;
    }
 
+   .secondary-btn {
+      @apply text-slate-400 bg-[#ffffff0d] border border-gray-300 dark:border-gray-700 dark:hover:border-transparent hover:border-gray-200;
+   }
+
    .transparent-btn {
       @apply text-gray-600 dark:text-gray-400 hover:text-violet-600 dark:hover:text-violet-600 font-medium;
    }
