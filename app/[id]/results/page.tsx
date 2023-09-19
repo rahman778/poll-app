@@ -1,28 +1,28 @@
 "use client";
 
-import { useRouter } from 'next/navigation'
+import { useRouter } from "next/navigation";
 
+import CopyText from "@/components/Forms/CopyText";
 import HorizontalBar from "@/components/Charts/HorizontalBar";
+import PieChart from "@/components/Charts/PieChart";
 
 import {
    ArrowSmallLeftIcon,
    ArrowPathIcon,
-   ChartPieIcon,
    ClipboardIcon,
    EyeIcon,
    ShareIcon,
 } from "@heroicons/react/24/outline";
 
 const pollData = [
-  { id: 1, label: 'Option 1', votes: 25 },
-  { id: 2, label: 'Option 2', votes: 40 },
-  { id: 3, label: 'Option 3', votes: 15 },
-  { id: 4, label: 'Option 4', votes: 20 },
+   { id: 1, label: "Option 1", votes: 25 },
+   { id: 2, label: "Option 2", votes: 40 },
+   { id: 3, label: "Option 3", votes: 15 },
+   { id: 4, label: "Option 4", votes: 20 },
 ];
 
-
 function ResultsPage() {
-  const router = useRouter()
+   const router = useRouter();
 
    return (
       <div className="mb-10 flex flex-col items-center">
@@ -33,21 +33,24 @@ function ResultsPage() {
             <div className="mt-2 text-sm text-gray-500">
                by a guest · 1 week ago
             </div>
-            <div className="md:flex items-start space-y-8">
-              <div className="flex-grow mt-4">
-              <HorizontalBar pollData={pollData} />
-              </div>
-              <div className="flex-shrink-0 relative"></div>
+            <div className="md:flex items-start md:gap-x-6 space-y-8">
+               <div className="flex-grow mt-4">
+                  <HorizontalBar pollData={pollData} />
+               </div>
+               <div className="flex-shrink-0 relative">
+                  <div className="max-w-[275px] mx-auto">
+                     <PieChart />
+                  </div>
+               </div>
             </div>
             <div className="flex flex-col sm:flex-row gap-x-4 lg:gap-x-6 mt-10">
                <button
                   type="button"
                   className="button py-2.5 primary-btn flex gap-x-2 w-full sm:w-48"
-                  onClick={() => router.push('/123/results')}
+                  onClick={() => router.push("/123/results")}
                >
                   <ArrowPathIcon className="w-5 h-4 stroke-[3]" />
                   <span>Refresh results</span>
-                  
                </button>
                <button
                   type="button"
@@ -74,20 +77,7 @@ function ResultsPage() {
             <div className="border-t border-gray-200 dark:border-gray-700">
                <div className="px-4 py-6 sm:px-6 max-w-lg mx-auto">
                   <h6 className="text-sm">Share the link</h6>
-
-                  <div className="relative mt-3 flex items-stretch flex-grow focus-within:z-10 truncate">
-                     <input
-                        type="text"
-                        name=""
-                        id=""
-                        value="https://strawpoll.com/Qrgebk6kRZp"
-                        className="input text-sm text-slate-500 dark:text-slate-400 py-2"
-                        readOnly
-                     />
-                     <button className="absolute inset-y-px right-px rounded-md pl-3 pr-3 button">
-                        <ClipboardIcon className="w-5 h-5 text-gray-400 stroke-2" />
-                     </button>
-                  </div>
+                  <CopyText value="https://example.com/Qrgebk6kRZp"/>
                </div>
             </div>
          </div>

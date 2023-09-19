@@ -8,8 +8,8 @@ import {
    PlusIcon,
 } from "@heroicons/react/24/outline";
 
-import Checkbox from "@/components/forms/Checkbox";
-import Dropdown from "@/components/forms/Dropdown";
+import Checkbox from "@/components/Forms/Checkbox";
+import Dropdown from "@/components/Forms/Dropdown";
 
 interface Option {
    label: string;

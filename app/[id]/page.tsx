@@ -1,22 +1,22 @@
 "use client";
 
 import React, { useState } from "react";
-import { useRouter } from 'next/navigation'
+import { useRouter } from "next/navigation";
 
 import {
    ArrowSmallRightIcon,
    ChartPieIcon,
-   ClipboardIcon,
    EyeIcon,
    ShareIcon,
 } from "@heroicons/react/24/outline";
 
-import Checkbox from "@/components/forms/Checkbox";
+import Checkbox from "@/components/Forms/Checkbox";
+import CopyText from "@/components/Forms/CopyText";
 
 type Props = {};
 
 function PollPage({}: Props) {
-   const router = useRouter()
+   const router = useRouter();
 
    const [answers, setAnswers] = useState([
       { id: 1, answer: "answer1" },
@@ -59,7 +59,7 @@ function PollPage({}: Props) {
                <button
                   type="button"
                   className="button py-2.5 primary-btn flex gap-x-2 w-full sm:w-32"
-                  onClick={() => router.push('/123/results')}
+                  onClick={() => router.push("/123/results")}
                >
                   <span>Vote</span>
                   <ArrowSmallRightIcon className="w-5 h-4 stroke-[3]" />
@@ -67,21 +67,12 @@ function PollPage({}: Props) {
                <button
                   type="button"
                   className="button py-2.5 secondary-btn flex gap-x-2 w-full sm:w-40 mt-5 sm:mt-0"
-                  onClick={() => router.push('/123/results')}
+                  onClick={() => router.push("/123/results")}
                >
                   <ChartPieIcon className="h-5 w-5 stroke-2" />
                   <span> Show results</span>
                </button>
             </div>
-            {/* <div className="mt-5 sm:mt-0">
-                  <button
-                     type="button"
-                     className="button py-2.5 secondary-btn flex gap-x-2  w-36"
-                  >
-                     <ShareIcon className="w-5 h-4" />
-                     <span> Share</span>
-                  </button>
-               </div> */}
          </div>
          <div className="w-full max-w-3xl bg-white dark:bg-gray-900 shadow-sm ring-1 ring-gray-300 dark:ring-gray-700 rounded-md mt-8">
             <div className="px-4 py-5 sm:px-6 flex justify-between items-center">
@@ -97,20 +88,7 @@ function PollPage({}: Props) {
             <div className="border-t border-gray-200 dark:border-gray-700">
                <div className="px-4 py-6 sm:px-6 max-w-lg mx-auto">
                   <h6 className="text-sm">Share the link</h6>
-
-                  <div className="relative mt-3 flex items-stretch flex-grow focus-within:z-10 truncate">
-                     <input
-                        type="text"
-                        name=""
-                        id=""
-                        value="https://strawpoll.com/Qrgebk6kRZp"
-                        className="input text-sm text-slate-500 dark:text-slate-400 py-2"
-                        readOnly
-                     />
-                     <button className="absolute inset-y-px right-px rounded-md pl-3 pr-3 button">
-                        <ClipboardIcon className="w-5 h-5 text-gray-400 stroke-2" />
-                     </button>
-                  </div>
+                  <CopyText value="https://example.com/Qrgebk6kRZp" />
                </div>
             </div>
          </div>
