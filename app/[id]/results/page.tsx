@@ -1,38 +1,29 @@
 "use client";
 
-import React, { useState } from "react";
 import { useRouter } from 'next/navigation'
 
+import HorizontalBar from "@/components/Charts/HorizontalBar";
+
 import {
-   ArrowSmallRightIcon,
+   ArrowSmallLeftIcon,
+   ArrowPathIcon,
    ChartPieIcon,
    ClipboardIcon,
    EyeIcon,
    ShareIcon,
 } from "@heroicons/react/24/outline";
 
-import Checkbox from "@/components/forms/Checkbox";
+const pollData = [
+  { id: 1, label: 'Option 1', votes: 25 },
+  { id: 2, label: 'Option 2', votes: 40 },
+  { id: 3, label: 'Option 3', votes: 15 },
+  { id: 4, label: 'Option 4', votes: 20 },
+];
 
-type Props = {};
 
-function PollPage({}: Props) {
-   const router = useRouter()
+function ResultsPage() {
+  const router = useRouter()
 
-   const [answers, setAnswers] = useState([
-      { id: 1, answer: "answer1" },
-      { id: 2, answer: "answer2" },
-      { id: 3, answer: "answer3" },
-      { id: 4, answer: "answer4" },
-   ]);
-   const [selectedAnswerId, setSelectedAnswerId] = useState(2);
-
-   const handleCheckboxChange = (
-      event: React.ChangeEvent<HTMLInputElement>
-   ): void => {
-      const { name, checked, value } = event.target;
-
-      setSelectedAnswerId(2);
-   };
    return (
       <div className="mb-10 flex flex-col items-center">
          <div className="w-full max-w-3xl bg-white dark:bg-gray-900 shadow-sm ring-1 ring-gray-300 dark:ring-gray-700 rounded-md px-4 py-5 sm:p-6 lg:p-8 mt-8">
@@ -42,47 +33,33 @@ function PollPage({}: Props) {
             <div className="mt-2 text-sm text-gray-500">
                by a guest · 1 week ago
             </div>
-            <div className="text-gray-500 mt-6">Make a choice:</div>
-            <div className="mt-4">
-               {answers.map((data) => (
-                  <div className="mt-4" key={data.id}>
-                     <Checkbox
-                        checked={data.id === selectedAnswerId}
-                        name={data.id.toString()}
-                        label={data.answer}
-                        onchange={(e) => handleCheckboxChange(e)}
-                     />
-                  </div>
-               ))}
+            <div className="md:flex items-start space-y-8">
+              <div className="flex-grow mt-4">
+              <HorizontalBar pollData={pollData} />
+              </div>
+              <div className="flex-shrink-0 relative"></div>
             </div>
             <div className="flex flex-col sm:flex-row gap-x-4 lg:gap-x-6 mt-10">
                <button
                   type="button"
-                  className="button py-2.5 primary-btn flex gap-x-2 w-full sm:w-32"
+                  className="button py-2.5 primary-btn flex gap-x-2 w-full sm:w-48"
                   onClick={() => router.push('/123/results')}
                >
-                  <span>Vote</span>
-                  <ArrowSmallRightIcon className="w-5 h-4 stroke-[3]" />
+                  <ArrowPathIcon className="w-5 h-4 stroke-[3]" />
+                  <span>Refresh results</span>
+                  
                </button>
                <button
                   type="button"
                   className="button py-2.5 secondary-btn flex gap-x-2 w-full sm:w-40 mt-5 sm:mt-0"
-                  onClick={() => router.push('/123/results')}
+                  onClick={() => router.back()}
                >
-                  <ChartPieIcon className="h-5 w-5 stroke-2" />
-                  <span> Show results</span>
+                  <ArrowSmallLeftIcon className="w-5 h-4 stroke-[3]" />
+                  <span> Back to poll</span>
                </button>
             </div>
-            {/* <div className="mt-5 sm:mt-0">
-                  <button
-                     type="button"
-                     className="button py-2.5 secondary-btn flex gap-x-2  w-36"
-                  >
-                     <ShareIcon className="w-5 h-4" />
-                     <span> Share</span>
-                  </button>
-               </div> */}
          </div>
+
          <div className="w-full max-w-3xl bg-white dark:bg-gray-900 shadow-sm ring-1 ring-gray-300 dark:ring-gray-700 rounded-md mt-8">
             <div className="px-4 py-5 sm:px-6 flex justify-between items-center">
                <h2 className="text-lg text-gray-900 dark:text-gray-200 font-medium flex items-center gap-x-2.5">
@@ -118,4 +95,4 @@ function PollPage({}: Props) {
    );
 }
 
-export default PollPage;
+export default ResultsPage;
