@@ -2,19 +2,19 @@ import Link from "next/link";
 
 import ThemeButton from "@/components/Buttons/ThemeButton";
 
-import { Route } from "./Navbar";
+import { Route } from "@/types/Route";
 
-type Props = {
+interface IProps {
    children: React.ReactNode;
    routes: Route[];
-};
+}
 
-function DesktopNavbar({ children, routes }: Props) {
+const DesktopNavbar: React.FC<IProps> = ({ children, routes }) => {
    return (
       <nav className="sticky bg-white dark:bg-gray-900 shadow-sm ring-1 ring-gray-300 dark:ring-gray-700">
-         <div className="max-w-7xl 2xl:max-w-screen-2xl mx-auto px-2 sm:px-4 lg:px-8 2xl:px-12">
+         <div className="max-w-7xl 2xl:max-w-screen-2xl mx-auto px-4 sm:px-6 lg:px-8 2xl:px-12">
             <div className="flex justify-between h-16">
-               <div className="flex truncate px-2 lg:px-0">
+               <div className="flex truncate">
                   <Link
                      href="/"
                      className="flex items-center flex-shrink-0 text-gray-700 dark:text-gray-200"
@@ -37,16 +37,16 @@ function DesktopNavbar({ children, routes }: Props) {
                   <ThemeButton />
                   <div className="hidden lg:ml-2 lg:flex lg:items-center">
                      <div className="flex items-center space-x-3 ">
-                        <Link href="" className="button transparent-btn">
+                        <Link href="/" className="button transparent-btn">
                            Login
                         </Link>
-                        <Link href="" className="button primary-btn">
+                        <Link href="/" className="button primary-btn">
                            Signup
                         </Link>
                      </div>
                   </div>
                   {/* Mobile button */}
-                  <div className="flex items-center px-2 lg:hidden">
+                  <div className="flex items-center px-2 ml-2 lg:hidden">
                      {children}
                   </div>
                </div>
@@ -54,6 +54,6 @@ function DesktopNavbar({ children, routes }: Props) {
          </div>
       </nav>
    );
-}
+};
 
 export default DesktopNavbar;

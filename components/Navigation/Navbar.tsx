@@ -10,25 +10,22 @@ import {
 
 import DesktopNavbar from "@/components/Navigation/DesktopNavbar";
 
-export interface Route {
-   id: number;
-   label: string;
-   path: string;
-   icon?: JSX.Element;
-}
+import { Route } from "@/types/Route";
 
 const routes: Route[] = [
    {
       id: 1,
       label: "Create Poll",
-      path: "",
-      icon: <ChartPieIcon className="h-5 w-5 text-teal-500 flex-shrink" />,
+      path: "/create",
+      icon: <ChartPieIcon className="h-5 w-5 text-violet-500 flex-shrink" />,
    },
    {
       id: 2,
       label: "Schedule Meeting",
-      path: "",
-      icon: <CalendarDaysIcon className="h-5 w-5 text-teal-500 flex-shrink" />,
+      path: "/",
+      icon: (
+         <CalendarDaysIcon className="h-5 w-5 text-violet-500 flex-shrink" />
+      ),
    },
 ];
 
@@ -36,28 +33,26 @@ const links: Route[] = [
    {
       id: 1,
       label: "Help Center",
-      path: "",
+      path: "/",
    },
    {
       id: 2,
       label: "Guides",
-      path: "",
+      path: "/",
    },
    {
       id: 3,
       label: "Support",
-      path: "",
+      path: "/",
    },
    {
       id: 4,
       label: "About",
-      path: "",
+      path: "/",
    },
 ];
 
-type Props = {};
-
-function Navbar({}: Props) {
+const Navbar: React.FC = ({}) => {
    const [isOpen, setIsOpen] = useState<boolean>(false);
 
    return (
@@ -65,7 +60,7 @@ function Navbar({}: Props) {
          <DesktopNavbar routes={routes}>
             <button
                onClick={() => setIsOpen((prev) => !prev)}
-               className="inline-flex items-center justify-center p-2 rounded-md text-gray-400 hover:text-gray-500 hover:bg-gray-100 dark:hover:text-gray-200 dark:hover:bg-gray-700 focus:outline-none focus:ring-2 focus:ring-inset focus:ring-teal-500"
+               className="inline-flex items-center justify-center p-2 rounded-md text-gray-400 hover:text-gray-500 hover:bg-gray-100 dark:hover:text-gray-200 dark:hover:bg-gray-700 focus:outline-none focus:ring-2 focus:ring-inset focus:ring-violet-500"
             >
                <svg
                   xmlns="http://www.w3.org/2000/svg"
@@ -86,12 +81,11 @@ function Navbar({}: Props) {
 
          {/* Mobile Menu */}
          <div
-            className={
-               " p-2 absolute right-0 top-2 origin-top-right min-w-full  transform transition-all duration-300 ease-in-out rounded z-50 overflow-auto" +
-               (isOpen
+            className={`p-2 absolute right-0 top-2 origin-top-right min-w-full transform transition-all duration-300 ease-in-out rounded z-50 overflow-auto ${
+               isOpen
                   ? "scale-100 opacity-100 visible"
-                  : " scale-90 opacity-0 invisible")
-            }
+                  : "scale-90 opacity-0 invisible"
+            }`}
          >
             <div className="rounded-lg shadow-lg ring-1 ring-gray-300 dark:ring-gray-700 bg-white dark:bg-gray-900 divide-y-2 divide-gray-50 dark:divide-gray-700">
                <div className="pt-5 pb-6 px-5">
@@ -99,7 +93,7 @@ function Navbar({}: Props) {
                      <div className="-mr-2">
                         <button
                            onClick={() => setIsOpen((prev) => !prev)}
-                           className="bg-white dark:bg-gray-800 rounded-md p-1.5 inline-flex items-center justify-center text-gray-400 dark:hover:text-gray-200 dark:hover:bg-gray-700 hover:bg-gray-100 focus:outline-none focus:ring-2 focus:ring-inset focus:ring-teal-500"
+                           className="bg-white dark:bg-gray-800 rounded-md p-1.5 inline-flex items-center justify-center text-gray-400 dark:hover:text-gray-200 dark:hover:bg-gray-700 hover:bg-gray-100 focus:outline-none focus:ring-2 focus:ring-inset focus:ring-violet-500"
                         >
                            <XMarkIcon className="w-6 h-6" />
                            <span className="sr-only">Close menu</span>
@@ -107,7 +101,7 @@ function Navbar({}: Props) {
                      </div>
                      <div>
                         <Link
-                           href=""
+                           href="/"
                            className="flex-shrink-0 flex items-center text-gray-900 dark:text-white"
                         >
                            Poll App
@@ -145,13 +139,13 @@ function Navbar({}: Props) {
                   </div>
                   <div>
                      <Link
-                        href=""
-                        className="w-full flex items-center justify-center px-4 py-2 border border-transparent rounded-md shadow-sm text-base font-medium text-white bg-teal-600 hover:bg-teal-700"
+                        href="/"
+                        className="w-full flex items-center justify-center px-4 py-2 border border-transparent rounded-md shadow-sm text-base font-medium text-white bg-violet-600 hover:bg-violet-700"
                      >
                         Signup
                      </Link>
                      <p className="mt-6 text-center text-sm font-medium text-gray-500">
-                        Existing user ? <Link href="">login</Link>
+                        Existing user ? <Link href="/">login</Link>
                      </p>
                   </div>
                </div>
@@ -159,6 +153,6 @@ function Navbar({}: Props) {
          </div>
       </>
    );
-}
+};
 
 export default Navbar;

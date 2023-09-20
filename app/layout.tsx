@@ -5,7 +5,7 @@ import Providers from "@/app/Providers";
 
 import Navbar from "@/components/Navigation/Navbar";
 
-const poppins = Poppins({ weight: ["400", "500", "700"], subsets: ["latin"] });
+const poppins = Poppins({ weight: ["400", "500","600", "700"], subsets: ["latin"] });
 
 export const metadata: Metadata = {
    title: "SnapPoll",
@@ -21,11 +21,11 @@ export default function RootLayout({
    return (
       <html lang="en" suppressHydrationWarning>
          <body
-            className={`${poppins.className} bg-[#EDF2F7] dark:bg-[#2D3748]`}
+            className={`${poppins.className} bg-[#EDF2F7] dark:bg-gray-800`}
          >
             <Providers>
                <Navbar />
-               <main className="max-w-7xl 2xl:max-w-screen-2xl mx-auto px-2 sm:px-4 lg:px-8 2xl:px-12">
+               <main className="max-w-6xl 2xl:max-w-screen-2xl mx-auto px-4 sm:px-6 lg:px-8 2xl:px-12">
                   
                   {children}
                </main>
