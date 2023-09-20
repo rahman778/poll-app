@@ -13,7 +13,6 @@ const CopyText: React.FC<IProps> = ({ value }) => {
          <input
             type="text"
             value={value}
-            //value="https://strawpoll.com/Qrgebk6kRZp"
             className="input text-sm text-slate-500 dark:text-slate-400 py-2"
             readOnly
          />
