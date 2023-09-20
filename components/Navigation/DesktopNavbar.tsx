@@ -2,14 +2,14 @@ import Link from "next/link";
 
 import ThemeButton from "@/components/Buttons/ThemeButton";
 
-import { Route } from "./Navbar";
+import { Route } from "@/types/Route";
 
-type Props = {
+interface IProps {
    children: React.ReactNode;
    routes: Route[];
-};
+}
 
-function DesktopNavbar({ children, routes }: Props) {
+const DesktopNavbar: React.FC<IProps> = ({ children, routes }) => {
    return (
       <nav className="sticky bg-white dark:bg-gray-900 shadow-sm ring-1 ring-gray-300 dark:ring-gray-700">
          <div className="max-w-7xl 2xl:max-w-screen-2xl mx-auto px-4 sm:px-6 lg:px-8 2xl:px-12">
@@ -54,6 +54,6 @@ function DesktopNavbar({ children, routes }: Props) {
          </div>
       </nav>
    );
-}
+};
 
 export default DesktopNavbar;

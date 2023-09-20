@@ -3,11 +3,11 @@
 import React from "react";
 import { ClipboardIcon } from "@heroicons/react/24/outline";
 
-interface Props {
+interface IProps {
    value: string;
 }
 
-const CopyText: React.FC<Props> = ({ value }) => {
+const CopyText: React.FC<IProps> = ({ value }) => {
    return (
       <div className="relative mt-3 flex items-stretch flex-grow focus-within:z-10 truncate">
          <input

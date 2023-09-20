@@ -11,19 +11,16 @@ import {
 import Checkbox from "@/components/Forms/Checkbox";
 import Dropdown from "@/components/Forms/Dropdown";
 
-interface Option {
+import { Setting } from "@/types/Setting";
+
+type Option = {
    label: string;
    value: string;
 }
 
-interface Input {
+type Input = {
    name: string;
    value: string;
-}
-
-interface Settings {
-   multiple: boolean;
-   deadline: boolean;
 }
 
 function CreatePoll() {
@@ -35,7 +32,7 @@ function CreatePoll() {
       { name: "", value: "" },
       { name: "", value: "" },
    ]);
-   const [settings, setSettings] = useState<Settings>({
+   const [settings, setSettings] = useState<Setting>({
       multiple: false,
       deadline: false,
    });

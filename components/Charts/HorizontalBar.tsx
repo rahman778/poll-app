@@ -1,12 +1,12 @@
 import React, { useEffect, useState } from "react";
 
-interface PollData {
+interface IPollData {
    id: number;
    label: string;
    votes: number;
 }
 
-const PollResults: React.FC<{ pollData: PollData[] }> = ({ pollData }) => {
+const PollResults: React.FC<{ pollData: IPollData[] }> = ({ pollData }) => {
    const [animationComplete, setAnimationComplete] = useState<boolean>(false);
 
    useEffect(() => {

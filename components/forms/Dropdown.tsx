@@ -3,21 +3,22 @@
 import { ChevronDownIcon } from "@heroicons/react/24/outline";
 import React, { useState, useRef, useEffect } from "react";
 
-interface Option {
-   label: string;
-   value: string;
-   icon?: JSX.Element;
-}
 
-type Props = {
+interface IProps {
    options: Option[];
    handleOptionClick: (type: Option) => void;
    name: string;
    placeholder: string;
    selectedItem: Option;
-};
+}
 
-function Dropdown(props: Props) {
+type Option = {
+   label: string;
+   value: string;
+   icon?: JSX.Element;
+}
+
+const Dropdown: React.FC<IProps> = (props) => {
    const { options, handleOptionClick, name, placeholder, selectedItem } =
       props;
 
@@ -104,6 +105,6 @@ function Dropdown(props: Props) {
          </div>
       </div>
    );
-}
+};
 
 export default Dropdown;

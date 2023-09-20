@@ -10,12 +10,7 @@ import {
 
 import DesktopNavbar from "@/components/Navigation/DesktopNavbar";
 
-export interface Route {
-   id: number;
-   label: string;
-   path: string;
-   icon?: JSX.Element;
-}
+import { Route } from "@/types/Route";
 
 const routes: Route[] = [
    {
@@ -28,7 +23,9 @@ const routes: Route[] = [
       id: 2,
       label: "Schedule Meeting",
       path: "/",
-      icon: <CalendarDaysIcon className="h-5 w-5 text-violet-500 flex-shrink" />,
+      icon: (
+         <CalendarDaysIcon className="h-5 w-5 text-violet-500 flex-shrink" />
+      ),
    },
 ];
 
@@ -55,9 +52,7 @@ const links: Route[] = [
    },
 ];
 
-type Props = {};
-
-function Navbar({}: Props) {
+const Navbar: React.FC = ({}) => {
    const [isOpen, setIsOpen] = useState<boolean>(false);
 
    return (
@@ -87,8 +82,10 @@ function Navbar({}: Props) {
          {/* Mobile Menu */}
          <div
             className={`p-2 absolute right-0 top-2 origin-top-right min-w-full transform transition-all duration-300 ease-in-out rounded z-50 overflow-auto ${
-               isOpen ? "scale-100 opacity-100 visible" : "scale-90 opacity-0 invisible"
-             }`}
+               isOpen
+                  ? "scale-100 opacity-100 visible"
+                  : "scale-90 opacity-0 invisible"
+            }`}
          >
             <div className="rounded-lg shadow-lg ring-1 ring-gray-300 dark:ring-gray-700 bg-white dark:bg-gray-900 divide-y-2 divide-gray-50 dark:divide-gray-700">
                <div className="pt-5 pb-6 px-5">
@@ -156,6 +153,6 @@ function Navbar({}: Props) {
          </div>
       </>
    );
-}
+};
 
 export default Navbar;

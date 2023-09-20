@@ -2,9 +2,9 @@ import React, { useState } from "react";
 
 import { PieChart as Chart } from "react-minimal-pie-chart";
 
-interface Props {}
+interface IProps {}
 
-const PieChart: React.FC = (props: Props) => {
+const PieChart: React.FC = (props: IProps) => {
    const [selected, setSelected] = useState<number | undefined>(0);
 
    const lineWidth = 60;

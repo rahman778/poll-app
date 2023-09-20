@@ -3,7 +3,7 @@ import { useState, useEffect } from "react";
 import { useTheme } from "next-themes";
 import { SunIcon, MoonIcon } from "@heroicons/react/24/solid";
 
-function ThemeButton() {
+const ThemeButton: React.FC = () => {
    const { resolvedTheme, setTheme } = useTheme();
 
    const [mounted, setMounted] = useState<boolean>(false);
@@ -24,6 +24,6 @@ function ThemeButton() {
          )}
       </button>
    );
-}
+};
 
 export default ThemeButton;

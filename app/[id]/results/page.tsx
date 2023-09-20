@@ -9,7 +9,6 @@ import PieChart from "@/components/Charts/PieChart";
 import {
    ArrowSmallLeftIcon,
    ArrowPathIcon,
-   ClipboardIcon,
    EyeIcon,
    ShareIcon,
 } from "@heroicons/react/24/outline";

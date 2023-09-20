@@ -13,9 +13,7 @@ import {
 import Checkbox from "@/components/Forms/Checkbox";
 import CopyText from "@/components/Forms/CopyText";
 
-type Props = {};
-
-function PollPage({}: Props) {
+function PollPage() {
    const router = useRouter();
 
    const [answers, setAnswers] = useState([
