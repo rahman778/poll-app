@@ -37,7 +37,7 @@ const DesktopNavbar: React.FC<IProps> = ({ children, routes }) => {
                   <ThemeButton />
                   <div className="hidden lg:ml-2 lg:flex lg:items-center">
                      <div className="flex items-center space-x-3 ">
-                        <Link href="/" className="button transparent-btn">
+                        <Link href="/login" className="button transparent-btn">
                            Login
                         </Link>
                         <Link href="/" className="button primary-btn">
