@@ -29,11 +29,11 @@ function PollPage() {
    ): void => {
       const { name, checked, value } = event.target;
 
-      setSelectedAnswerId(2);
+      setSelectedAnswerId(3);
    };
    return (
       <div className="mb-10 flex flex-col items-center">
-         <div className="w-full max-w-3xl bg-white dark:bg-gray-900 shadow-sm ring-1 ring-gray-300 dark:ring-gray-700 rounded-md px-4 py-5 sm:p-6 lg:p-8 mt-8">
+         <div className="w-full max-w-3xl box mt-8">
             <h1 className="strawpoll-title text-2xl text-gray-900 dark:text-gray-200 font-medium break-words">
                Favorite color?
             </h1>
@@ -72,7 +72,7 @@ function PollPage() {
                </button>
             </div>
          </div>
-         <div className="w-full max-w-3xl bg-white dark:bg-gray-900 shadow-sm ring-1 ring-gray-300 dark:ring-gray-700 rounded-md mt-8">
+         <div className="w-full max-w-3xl box p-0 mt-8">
             <div className="px-4 py-5 sm:px-6 flex justify-between items-center">
                <h2 className="text-lg text-gray-900 dark:text-gray-200 font-medium flex items-center gap-x-2.5">
                   <ShareIcon className="h-5 w-5 text-gray-400  stroke-2" />

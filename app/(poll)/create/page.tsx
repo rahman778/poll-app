@@ -73,7 +73,7 @@ function CreatePoll() {
          <h1 className="text-2xl sm:text-3xl leading-7 font-semibold text-gray-900 dark:text-gray-100 sm:truncate">
             Create a Poll
          </h1>
-         <div className="w-full max-w-3xl bg-white dark:bg-gray-900 shadow-sm ring-1 ring-gray-300 dark:ring-gray-700 rounded-md px-4 py-5 sm:p-6 lg:p-8 mt-8">
+         <div className="w-full max-w-3xl box mt-8">
             <form>
                <div>
                   <input
