@@ -1,4 +1,5 @@
 import Link from "next/link";
+import { signOut, useSession } from "next-auth/react";
 
 import ThemeButton from "@/components/Buttons/ThemeButton";
 
@@ -10,6 +11,9 @@ interface IProps {
 }
 
 const DesktopNavbar: React.FC<IProps> = ({ children, routes }) => {
+   const { data: session } = useSession();
+   const user = session?.user;
+
    return (
       <nav className="sticky bg-white dark:bg-gray-900 shadow-sm ring-1 ring-gray-300 dark:ring-gray-700">
          <div className="max-w-7xl 2xl:max-w-screen-2xl mx-auto px-4 sm:px-6 lg:px-8 2xl:px-12">
@@ -36,14 +40,26 @@ const DesktopNavbar: React.FC<IProps> = ({ children, routes }) => {
                <div className="flex items-center ">
                   <ThemeButton />
                   <div className="hidden lg:ml-2 lg:flex lg:items-center">
-                     <div className="flex items-center space-x-3 ">
-                        <Link href="/login" className="button transparent-btn">
-                           Login
-                        </Link>
-                        <Link href="/" className="button primary-btn">
-                           Signup
-                        </Link>
-                     </div>
+                     {user ? (
+                        <li
+                           className="button transparent-btn"
+                           onClick={() => signOut({ callbackUrl: '/' })}
+                        >
+                           Logout
+                        </li>
+                     ) : (
+                        <div className="flex items-center space-x-3 ">
+                           <Link
+                              href="/login"
+                              className="button transparent-btn"
+                           >
+                              Login
+                           </Link>
+                           <Link href="/" className="button primary-btn">
+                              Signup
+                           </Link>
+                        </div>
+                     )}
                   </div>
                   {/* Mobile button */}
                   <div className="flex items-center px-2 ml-2 lg:hidden">

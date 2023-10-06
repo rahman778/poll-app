@@ -1,8 +1,15 @@
 "use client";
-import { ThemeProvider } from "next-themes";
+import { ThemeProvider as NextThemeProvider } from "next-themes";
+import { SessionProvider } from "next-auth/react";
 
-function Providers({ children }: { children: React.ReactNode }) {
-   return <ThemeProvider attribute="class">{children}</ThemeProvider>;
-}
+type Props = {
+   children?: React.ReactNode;
+};
 
-export default Providers;
+export const ThemeProvider = ({ children }: Props) => {
+   return <NextThemeProvider attribute="class">{children}</NextThemeProvider>;
+};
+
+export const NextAuthProvider = ({ children }: Props) => {
+   return <SessionProvider>{children}</SessionProvider>;
+};

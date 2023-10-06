@@ -1,6 +1,7 @@
 "use client";
 
 import React, { useState } from "react";
+import { signOut, useSession } from "next-auth/react";
 import Link from "next/link";
 import {
    ChartPieIcon,
@@ -53,6 +54,9 @@ const links: Route[] = [
 ];
 
 const Navbar: React.FC = ({}) => {
+   const { data: session } = useSession();
+   const user = session?.user;
+
    const [isOpen, setIsOpen] = useState<boolean>(false);
 
    return (
@@ -138,15 +142,26 @@ const Navbar: React.FC = ({}) => {
                      ))}
                   </div>
                   <div>
-                     <Link
-                        href="/"
-                        className="w-full flex items-center justify-center px-4 py-2 border border-transparent rounded-md shadow-sm text-base font-medium text-white bg-violet-600 hover:bg-violet-700"
-                     >
-                        Signup
-                     </Link>
-                     <p className="mt-6 text-center text-sm font-medium text-gray-500">
-                        Existing user ? <Link href="/">login</Link>
-                     </p>
+                     {user ? (
+                        <li
+                           className="button light-btn w-full flex items-center justify-center px-4 py-3"
+                           onClick={() => signOut({ callbackUrl: '/' })}
+                        >
+                           Logout
+                        </li>
+                     ) : (
+                        <>
+                           <Link
+                              href="/"
+                              className="w-full flex items-center justify-center px-4 py-2 border border-transparent rounded-md shadow-sm text-base font-medium text-white bg-violet-600 hover:bg-violet-700"
+                           >
+                              Signup
+                           </Link>
+                           <p className="mt-6 text-center text-sm font-medium text-gray-500">
+                              Existing user ? <Link href="/">login</Link>
+                           </p>
+                        </>
+                     )}
                   </div>
                </div>
             </div>
