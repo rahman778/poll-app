@@ -1,34 +1,22 @@
 import { startServerAndCreateNextHandler } from "@as-integrations/next";
-
 import { ApolloServer } from "@apollo/server";
-
-import { gql } from "graphql-tag";
-
 import { NextRequest } from "next/server";
 
-const resolvers = {
-   Query: {
-      hello: () => "world",
-   },
-};
-
-const typeDefs = gql`
-   type Query {
-      hello: String
-   }
-`;
+import { getAuthSession } from "@/lib/auth";
+import { resolvers } from "@/graphql/resolvers";
+import { typeDefs } from "@/graphql/schema";
 
 const server = new ApolloServer({
    resolvers,
    typeDefs,
 });
 
-const handler = startServerAndCreateNextHandler<NextRequest>(server);
+const handler = startServerAndCreateNextHandler<NextRequest>(server, {
+   context: async (req, res) => ({
+      currentUser: await getAuthSession(),
+      req,
+      res,
+   }),
+});
 
-export async function GET(request: NextRequest) {
-   return handler(request);
-}
-
-export async function POST(request: NextRequest) {
-   return handler(request);
-}
+export { handler as GET, handler as POST };

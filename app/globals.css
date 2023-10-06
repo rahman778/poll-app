@@ -8,7 +8,7 @@
    }
 
    .primary-btn {
-      @apply text-gray-100 bg-violet-600 hover:bg-violet-700;
+      @apply text-gray-100 bg-violet-600 hover:bg-violet-700 disabled:opacity-50 disabled:hover:bg-violet-600;
    }
 
    .secondary-btn {
