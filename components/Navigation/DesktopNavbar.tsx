@@ -40,7 +40,7 @@ const DesktopNavbar: React.FC<IProps> = ({ children, routes }) => {
                <div className="flex items-center ">
                   <ThemeButton />
                   <div className="hidden lg:ml-2 lg:flex lg:items-center">
-                     {user ? (
+                     { user ? (
                         <li
                            className="button transparent-btn"
                            onClick={() => signOut({ callbackUrl: '/' })}
@@ -55,7 +55,7 @@ const DesktopNavbar: React.FC<IProps> = ({ children, routes }) => {
                            >
                               Login
                            </Link>
-                           <Link href="/" className="button primary-btn">
+                           <Link href="/signup" className="button primary-btn">
                               Signup
                            </Link>
                         </div>

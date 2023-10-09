@@ -1,15 +1,23 @@
 "use client";
-import { ThemeProvider as NextThemeProvider } from "next-themes";
+
+import { ThemeProvider } from "next-themes";
 import { SessionProvider } from "next-auth/react";
+import { ApolloProvider } from "@apollo/client";
+
+import { browserApolloClient } from "@/lib/apollo-client";
 
 type Props = {
    children?: React.ReactNode;
 };
 
-export const ThemeProvider = ({ children }: Props) => {
-   return <NextThemeProvider attribute="class">{children}</NextThemeProvider>;
+const ClientProviders = ({ children }: Props) => {
+   return (
+      <SessionProvider>
+         <ApolloProvider client={browserApolloClient}>
+            <ThemeProvider attribute="class">{children}</ThemeProvider>
+         </ApolloProvider>
+      </SessionProvider>
+   );
 };
 
-export const NextAuthProvider = ({ children }: Props) => {
-   return <SessionProvider>{children}</SessionProvider>;
-};
+export default ClientProviders;
