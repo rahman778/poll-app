@@ -1,7 +1,7 @@
 import type { Metadata } from "next";
 import { Poppins } from "next/font/google";
 import "@/app/globals.css";
-import { NextAuthProvider, ThemeProvider } from "@/app/Providers";
+import Providers from "@/app/Providers";
 
 import { Toaster } from "react-hot-toast";
 
@@ -24,12 +24,10 @@ export default function RootLayout({
    return (
       <html lang="en" suppressHydrationWarning>
          <body className={`${poppins.className} bg-[#EDF2F7] dark:bg-gray-800`}>
-            <NextAuthProvider>
-               <ThemeProvider>
-                  {children} 
-                  <Toaster />
-               </ThemeProvider>
-            </NextAuthProvider>
+            <Providers>
+               {children}
+               <Toaster />
+            </Providers>
          </body>
       </html>
    );
