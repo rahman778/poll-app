@@ -1,9 +1,11 @@
 import React, { useEffect, useState } from "react";
 
 interface IPollData {
-   id: number;
-   label: string;
-   votes: number;
+   id: string;
+   answer: string;
+   votes: {
+      id: string;
+   }[];
 }
 
 const PollResults: React.FC<{ pollData: IPollData[] }> = ({ pollData }) => {
@@ -18,17 +20,17 @@ const PollResults: React.FC<{ pollData: IPollData[] }> = ({ pollData }) => {
       return () => clearTimeout(animationTimeout);
    }, []);
 
-   const totalVotes: number = pollData.reduce(
-      (total, option) => total + option.votes,
-      0
-   );
+   const totalVotes = pollData?.reduce((accumulator, option) => {
+      return accumulator + option.votes.length;
+    }, 0);
+    
 
    return (
       <div>
-         {pollData.map((option) => (
+         {pollData?.map((option) => (
             <div className="mb-1" key={option.id}>
                <div className="text-sm text-gray-500 font-medium mb-1">
-                  {option.label}
+                  {option.answer}
                </div>
                <div className="bg-slate-200 dark:bg-[#2D3748] h-4 relative rounded-xl">
                   <div
@@ -37,7 +39,7 @@ const PollResults: React.FC<{ pollData: IPollData[] }> = ({ pollData }) => {
                      }`}
                      style={{
                         width: animationComplete
-                           ? `${(option.votes / totalVotes) * 100}%`
+                           ? `${(option.votes.length / totalVotes) * 100}%`
                            : "0%",
                         transition: animationComplete
                            ? "width 1s ease-in-out"
@@ -46,8 +48,8 @@ const PollResults: React.FC<{ pollData: IPollData[] }> = ({ pollData }) => {
                   ></div>
                </div>
                <div className="flex text-gray-500 text-sm justify-end items-center gap-x-2 mt-2">
-                  <div>{((option.votes / totalVotes) * 100).toFixed(1)}%</div>
-                  <div>({option.votes} votes)</div>
+                  <div>{((option.votes.length / totalVotes) * 100).toFixed(1)}%</div>
+                  <div>({option.votes.length} votes)</div>
                </div>
             </div>
          ))}

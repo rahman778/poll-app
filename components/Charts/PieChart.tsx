@@ -1,20 +1,43 @@
-import React, { useState } from "react";
+import React, { useState, useMemo } from "react";
 
 import { PieChart as Chart } from "react-minimal-pie-chart";
 
-interface IProps {}
+const colorCodes = [
+   "#059669",
+   "#ca8a04",
+   "#0284c7",
+   "#c026d3",
+   "#c026d3",
+   "#e11d48",
+   "#0000ff",
+   "#ffff00",
+   "#800080",
+   "#ffa500",
+];
 
-const PieChart: React.FC = (props: IProps) => {
+interface IPollData {
+   id: string;
+   answer: string;
+   votes: {
+      id: string;
+   }[];
+}
+
+const PieChart: React.FC<{ pollData: IPollData[] }> = ({ pollData }) => {
    const [selected, setSelected] = useState<number | undefined>(0);
+
+   const formattedData = useMemo(() => {
+      return pollData?.map((option, idx) => ({
+         title: option.votes.length > 0 ? option.answer : "",
+         value: option.votes.length,
+         color: colorCodes[idx],
+      }));
+   }, [pollData]);
 
    const lineWidth = 60;
    return (
       <Chart
-         data={[
-            { title: "One", value: 10, color: "#2D3748" },
-            { title: "Two", value: 15, color: "#2D3748" },
-            { title: "Three", value: 20, color: "#2D3748" },
-         ]}
+         data={formattedData}
          style={{
             fontSize: "5px",
          }}
