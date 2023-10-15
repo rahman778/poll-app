@@ -72,9 +72,10 @@ function PollPage({ params }: { params: { id: string } }) {
       }
 
       try {
-         const { data, errors } = await createVotes({
+         const { data: voteRes, errors } = await createVotes({
             variables: {
                optionIds: selectedAnswerIds,
+               pollId: data.poll.id,
             },
          });
 
@@ -83,7 +84,7 @@ function PollPage({ params }: { params: { id: string } }) {
             return;
          }
 
-         if (data) {
+         if (voteRes) {
             router.push(`/${params.id}/results`);
          }
       } catch (error) {}

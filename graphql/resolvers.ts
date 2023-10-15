@@ -6,6 +6,7 @@ import { PrismaClient, User, Poll, Vote } from "@prisma/client";
 export type Context = {
    session: any;
    db: PrismaClient;
+   req: any;
 };
 
 export const resolvers = {
@@ -84,7 +85,7 @@ export const resolvers = {
                   answer: option,
                })),
             },
-            allowedVotes: args.data.allowedVotes,
+            allowedVotes: args.data.allowedVotes || "1",
             deadline: args.data.deadline,
          };
 
@@ -105,10 +106,24 @@ export const resolvers = {
       },
 
       createVotes: async (_: {}, args: any, context: Context) => {
-         let userId = context.session?.user.id;
+          let userId = context.session?.user.id;
+          let userAgent = context.req.headers.get("user-agent")
+
+          const existingVote = await context.db.vote.findFirst({
+            where: {
+              pollId: args.pollId,
+              userAgent,
+            },
+          });
+
+          if(existingVote) {
+            throw new GraphQLError("You already voted on this poll.");
+          }
 
          let data = args.optionIds.map((optionId: string) => ({
             optionId: optionId,
+            userAgent,
+            pollId: args.pollId
          }));
 
          if (userId) {

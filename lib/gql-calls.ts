@@ -74,7 +74,7 @@ export const CREATE_POLL = gql`
 `;
 
 export const CREATE_VOTE = gql`
-   mutation createVotes($optionIds: [ID!]!) {
-      createVotes(optionIds: $optionIds) 
+   mutation createVotes($optionIds: [ID!]!, $pollId: ID!) {
+      createVotes(optionIds: $optionIds, pollId: $pollId) 
    }
 `;

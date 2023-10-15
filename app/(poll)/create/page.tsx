@@ -22,7 +22,6 @@ function CreatePoll() {
    const [inputs, setInputs] = useState<Input[]>([
       { value: "" },
       { value: "" },
-      { value: "" },
    ]);
 
    const [formValues, setFormValues] = useState({
@@ -174,7 +173,9 @@ function CreatePoll() {
                            },
                         ]}
                         selectedOption={formValues.allowedVotes}
-                        handleSelect={(val) => handleChange("allowedVotes", val)}
+                        handleSelect={(val) =>
+                           handleChange("allowedVotes", val)
+                        }
                         placeholder={"Number of allowed answers"}
                         resetValue={handleChange}
                      />

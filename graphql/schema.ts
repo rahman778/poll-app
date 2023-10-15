@@ -51,6 +51,6 @@ export const typeDefs = `#graphql
    type Mutation {
       signup(email: String!, password: String!, name: String!): User
       createPoll(data: PollCreateInput): Poll
-      createVotes(optionIds: [ID!]!): Int!
+      createVotes(optionIds: [ID!]!, pollId: ID!): Int!
    }
 `;
