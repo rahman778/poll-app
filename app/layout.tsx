@@ -26,7 +26,13 @@ export default function RootLayout({
          <body className={`${poppins.className} bg-[#EDF2F7] dark:bg-gray-800`}>
             <Providers>
                {children}
-               <Toaster />
+               <Toaster
+                  toastOptions={{
+                     style: {
+                        fontSize: "14px",
+                     },
+                  }}
+               />
             </Providers>
          </body>
       </html>

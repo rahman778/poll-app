@@ -3,20 +3,19 @@
 import { ChevronDownIcon } from "@heroicons/react/24/outline";
 import React, { useState, useRef, useEffect } from "react";
 
-
 interface IProps {
    options: Option[];
-   handleOptionClick: (type: Option) => void;
+   handleOptionClick: (value: string) => void;
    name: string;
    placeholder: string;
-   selectedItem: Option;
+   selectedItem: string;
 }
 
 type Option = {
    label: string;
    value: string;
    icon?: JSX.Element;
-}
+};
 
 const Dropdown: React.FC<IProps> = (props) => {
    const { options, handleOptionClick, name, placeholder, selectedItem } =
@@ -53,10 +52,12 @@ const Dropdown: React.FC<IProps> = (props) => {
       setIsOpen(!isOpen);
    };
 
-   const onSelect = (option: Option) => {
+   const onSelect = (option: string) => {
       handleOptionClick(option);
       setIsOpen(false);
    };
+
+   const value = options.find((opt) => opt.value === selectedItem)?.label || "";
 
    return (
       <div
@@ -69,7 +70,7 @@ const Dropdown: React.FC<IProps> = (props) => {
             className="input cursor-default"
             onClick={toggleDropdown}
             placeholder={placeholder}
-            value={selectedItem.label}
+            value={value}
             name={name}
             readOnly
          />
@@ -90,14 +91,14 @@ const Dropdown: React.FC<IProps> = (props) => {
                {options.map((option) => (
                   <li
                      className={`flex items-center space-x-3 text-sm font-medium hover:bg-gray-100 dark:hover:bg-gray-700 px-4 py-3 cursor-default ${
-                        option.value === selectedItem.value
+                        option.value === selectedItem
                            ? "text-violet-600"
                            : "text-gray-900 dark:text-gray-300"
                      }`}
                      key={option.value}
-                     onClick={() => onSelect(option)}
+                     onClick={() => onSelect(option.value)}
                   >
-                     <span>{option.icon}</span>
+                     <span>{option?.icon}</span>
                      <span>{option.label}</span>
                   </li>
                ))}

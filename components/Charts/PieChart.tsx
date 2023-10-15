@@ -1,20 +1,59 @@
-import React, { useState } from "react";
+import React, { useState, useMemo } from "react";
 
 import { PieChart as Chart } from "react-minimal-pie-chart";
 
-interface IProps {}
+const colorCodes = [
+   "#059669",
+   "#ca8a04",
+   "#0284c7",
+   "#c026d3",
+   "#c026d3",
+   "#e11d48",
+   "#0000ff",
+   "#ffff00",
+   "#800080",
+   "#ffa500",
+];
 
-const PieChart: React.FC = (props: IProps) => {
+interface IPollData {
+   id: string;
+   answer: string;
+   votes: {
+      id: string;
+   }[];
+}
+
+const PieChart: React.FC<{ pollData: IPollData[] }> = ({ pollData }) => {
    const [selected, setSelected] = useState<number | undefined>(0);
 
+   const formattedData = useMemo(() => {
+      return pollData?.map((option, idx) => ({
+         title: option.votes.length > 0 ? option.answer : "",
+         value: option.votes.length,
+         color: colorCodes[idx],
+      }));
+   }, [pollData]);
+
    const lineWidth = 60;
+
+   const totalVotes = pollData?.reduce((accumulator, option) => {
+      return accumulator + option.votes.length;
+   }, 0);
+
+   if (totalVotes === 0) {
+      return (
+         <>
+            <div className="rounded-full bg-slate-300 dark:bg-slate-700 h-52 w-52"></div>
+            <p className="text-xs text-center mt-2 mb-0 text-slate-400 dark:text-slate-700">
+               A pie chart will be rendered here
+            </p>
+         </>
+      );
+   }
+
    return (
       <Chart
-         data={[
-            { title: "One", value: 10, color: "#2D3748" },
-            { title: "Two", value: 15, color: "#2D3748" },
-            { title: "Three", value: 20, color: "#2D3748" },
-         ]}
+         data={formattedData}
          style={{
             fontSize: "5px",
          }}

@@ -37,11 +37,7 @@ function SignupPage() {
          });
 
          if (errors?.length) {
-            toast.error(errors[0].message, {
-               style: {
-                  fontSize: "14px",
-               },
-            });
+            toast.error(errors[0].message);
             setLoading(false);
             return;
          }
