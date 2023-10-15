@@ -39,11 +39,7 @@ function CreatePoll() {
       e.preventDefault();
 
       if (!formValues.question) {
-         toast.error("Please type a question", {
-            style: {
-               fontSize: "14px",
-            },
-         });
+         toast.error("Please type a question");
          return;
       }
 
@@ -52,11 +48,7 @@ function CreatePoll() {
       );
 
       if (nonEmptyInputs.length < 2) {
-         toast.error("There should be atleast 2 options", {
-            style: {
-               fontSize: "14px",
-            },
-         });
+         toast.error("There should be atleast 2 options");
          return;
       }
 
@@ -71,11 +63,7 @@ function CreatePoll() {
          });
 
          if (errors?.length) {
-            toast.error(errors[0].message, {
-               style: {
-                  fontSize: "14px",
-               },
-            });
+            toast.error(errors[0]?.message);
             return;
          }
 
@@ -87,11 +75,7 @@ function CreatePoll() {
 
    const addInput = (): void => {
       if (inputs.length === 8) {
-         toast.error("You can add a maximum of 8 options", {
-            style: {
-               fontSize: "14px",
-            },
-         });
+         toast.error("You can add a maximum of 8 options");
          return;
       }
       setInputs([...inputs, { value: "" }]);

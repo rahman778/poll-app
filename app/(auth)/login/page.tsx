@@ -35,11 +35,7 @@ function LoginPage() {
          if (!res?.error) {
             router.push("/");
          } else {
-            toast.error("invalid credentials", {
-               style: {
-                  fontSize: "14px",
-               },
-            });
+            toast.error("invalid credentials");
          }
       } catch (error: any) {
          setLoading(false);

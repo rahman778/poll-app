@@ -2,7 +2,7 @@ import React from "react";
 
 const ResultCardSkeleton = () => {
    return (
-      <div className="boxw-full max-w-3xl box mt-8 mx-auto">
+      <div className="box w-full max-w-3xl box mt-8 mx-auto">
          <div className="animate-pulse">
             <div className="flex flex-col">
                <div className="h-6 bg-slate-300 dark:bg-slate-700 rounded max-w-md"></div>

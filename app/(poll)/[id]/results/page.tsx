@@ -8,21 +8,17 @@ import relativeTime from "dayjs/plugin/relativeTime";
 import { GET_RESULT } from "@/lib/gql-calls";
 
 import AnimateSpin from "@/components/Loaders/AnimateSpin";
-import CopyText from "@/components/Forms/CopyText";
 import HorizontalBar from "@/components/Charts/HorizontalBar";
 import PieChart from "@/components/Charts/PieChart";
+import ShareCard from "@/components/Cards/ShareCard";
 import ResultCardSkeleton from "@/components/Skeletons/ResultCardSkeleton";
+import ShareCardSkeleton from "@/components/Skeletons/ShareCardSkeleton";
 
-import {
-   ArrowSmallLeftIcon,
-   ArrowPathIcon,
-   EyeIcon,
-   ShareIcon,
-} from "@heroicons/react/24/outline";
+import { ArrowSmallLeftIcon, ArrowPathIcon } from "@heroicons/react/24/outline";
 
 dayjs.extend(relativeTime);
 
-import { NetworkStatus } from '@apollo/client';
+import { NetworkStatus } from "@apollo/client";
 
 function ResultsPage({ params }: { params: { id: string } }) {
    const router = useRouter();
@@ -32,14 +28,19 @@ function ResultsPage({ params }: { params: { id: string } }) {
       error,
       data,
       refetch,
-      networkStatus
+      networkStatus,
    } = useQuery(GET_RESULT, {
       variables: { pollId: params.id },
       notifyOnNetworkStatusChange: true,
    });
 
    if (pollLoading && networkStatus === NetworkStatus.loading) {
-      return <ResultCardSkeleton />;
+      return (
+         <>
+            <ResultCardSkeleton />
+            <ShareCardSkeleton />
+         </>
+      );
    }
 
    return (
@@ -69,7 +70,7 @@ function ResultsPage({ params }: { params: { id: string } }) {
                <button
                   type="button"
                   className="button py-2.5 primary-btn flex gap-x-2 w-full sm:w-48"
-                  onClick={() => refetch({variables: { pollId: params.id }})}
+                  onClick={() => refetch({ variables: { pollId: params.id } })}
                   disabled={pollLoading}
                >
                   {pollLoading ? (
@@ -93,22 +94,9 @@ function ResultsPage({ params }: { params: { id: string } }) {
          </div>
 
          <div className="w-full max-w-3xl box p-0 mt-8">
-            <div className="px-4 py-5 sm:px-6 flex justify-between items-center">
-               <h2 className="text-lg text-gray-900 dark:text-gray-200 font-medium flex items-center gap-x-2.5">
-                  <ShareIcon className="h-5 w-5 text-gray-400  stroke-2" />
-                  <span>Share</span>
-               </h2>
-               <div className="text-xs text-gray-500 bg-gray-100 dark:text-gray-400 dark:bg-gray-800 px-2 py-1 rounded-md inline-flex items-center gap-x-2 border dark:border-gray-500">
-                  <EyeIcon className="h-5 w-5 text-gray-400 stroke-2" />
-                  <span> Only visible to you</span>
-               </div>
-            </div>
-            <div className="border-t border-gray-200 dark:border-gray-700">
-               <div className="px-4 py-6 sm:px-6 max-w-lg mx-auto">
-                  <h6 className="text-sm">Share the link</h6>
-                  <CopyText value="https://example.com/Qrgebk6kRZp" />
-               </div>
-            </div>
+            <ShareCard
+               value={`${process.env.NEXT_PUBLIC_BASE_URL}/${params.id}`}
+            />
          </div>
       </div>
    );

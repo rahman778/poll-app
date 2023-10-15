@@ -9,17 +9,13 @@ import relativeTime from "dayjs/plugin/relativeTime";
 
 import { CREATE_VOTE, GET_POLL, GET_RESULT } from "@/lib/gql-calls";
 
-import {
-   ArrowSmallRightIcon,
-   ChartPieIcon,
-   EyeIcon,
-   ShareIcon,
-} from "@heroicons/react/24/outline";
+import { ArrowSmallRightIcon, ChartPieIcon } from "@heroicons/react/24/outline";
 
 import AnimateSpin from "@/components/Loaders/AnimateSpin";
 import Checkbox from "@/components/Forms/Checkbox";
-import CopyText from "@/components/Forms/CopyText";
+import ShareCard from "@/components/Cards/ShareCard";
 import VoteCardSkeleton from "@/components/Skeletons/VoteCardSkeleton";
+import ShareCardSkeleton from "@/components/Skeletons/ShareCardSkeleton";
 
 dayjs.extend(relativeTime);
 
@@ -58,14 +54,7 @@ function PollPage({ params }: { params: { id: string } }) {
             data.poll.allowedVotes !== "unlimit" &&
             selectedAnswerIds.length == Number(data.poll.allowedVotes)
          ) {
-            toast.error(
-               `maximum of ${data.poll.allowedVotes} vote(s) allowed`,
-               {
-                  style: {
-                     fontSize: "14px",
-                  },
-               }
-            );
+            toast.error(`maximum of ${data.poll.allowedVotes} vote(s) allowed`);
             return;
          }
          newState = [...selectedAnswerIds, name];
@@ -78,11 +67,7 @@ function PollPage({ params }: { params: { id: string } }) {
 
    const handleVote = async () => {
       if (!selectedAnswerIds.length) {
-         toast.error("Please select an option", {
-            style: {
-               fontSize: "14px",
-            },
-         });
+         toast.error("Please select an option");
          return;
       }
 
@@ -94,11 +79,7 @@ function PollPage({ params }: { params: { id: string } }) {
          });
 
          if (errors?.length) {
-            toast.error(errors[0].message, {
-               style: {
-                  fontSize: "14px",
-               },
-            });
+            toast.error(errors[0].message);
             return;
          }
 
@@ -109,7 +90,11 @@ function PollPage({ params }: { params: { id: string } }) {
    };
 
    if (pollLoading) {
-      return <VoteCardSkeleton />;
+      return (
+         <>
+            <VoteCardSkeleton /> <ShareCardSkeleton />
+         </>
+      );
    }
 
    if (dayjs().isAfter(dayjs(data?.poll.deadline))) {
@@ -172,23 +157,11 @@ function PollPage({ params }: { params: { id: string } }) {
                </button>
             </div>
          </div>
+
          <div className="w-full max-w-3xl box p-0 mt-8">
-            <div className="px-4 py-5 sm:px-6 flex justify-between items-center">
-               <h2 className="text-lg text-gray-900 dark:text-gray-200 font-medium flex items-center gap-x-2.5">
-                  <ShareIcon className="h-5 w-5 text-gray-400  stroke-2" />
-                  <span>Share</span>
-               </h2>
-               <div className="text-xs text-gray-500 bg-gray-100 dark:text-gray-400 dark:bg-gray-800 px-2 py-1 rounded-md inline-flex items-center gap-x-2 border dark:border-gray-500">
-                  <EyeIcon className="h-5 w-5 text-gray-400 stroke-2" />
-                  <span> Only visible to you</span>
-               </div>
-            </div>
-            <div className="border-t border-gray-200 dark:border-gray-700">
-               <div className="px-4 py-6 sm:px-6 max-w-lg mx-auto">
-                  <h6 className="text-sm">Share the link</h6>
-                  <CopyText value="https://example.com/Qrgebk6kRZp" />
-               </div>
-            </div>
+            <ShareCard
+               value={`${process.env.NEXT_PUBLIC_BASE_URL}/${params.id}`}
+            />
          </div>
       </div>
    );
