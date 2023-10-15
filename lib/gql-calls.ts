@@ -21,6 +21,8 @@ export const GET_POLL = gql`
    query poll($pollId: ID!) {
       poll(id: $pollId) {
          ...PollDetails
+         allowedVotes
+         deadline
       }
    }
    ${POLL_FRAGMENT}
@@ -52,29 +54,27 @@ export const SIGN_UP = gql`
 `;
 
 export const CREATE_POLL = gql`
-   mutation createPoll($text: String!, $options: [String!]!) {
-      createPoll(text: $text, options: $options) {
-         id
-         text
-         options {
-            id
-            answer
+   mutation createPoll(
+      $text: String!
+      $deadline: String
+      $allowedVotes: String
+      $options: [String!]!
+   ) {
+      createPoll(
+         data: {
+            text: $text
+            deadline: $deadline
+            allowedVotes: $allowedVotes
+            options: $options
          }
+      ) {
+         id
       }
    }
 `;
 
 export const CREATE_VOTE = gql`
-   mutation createVote($optionId: ID!) {
-      createVote(optionId: $optionId) {
-         id
-         createdAt
-         option {
-            answer
-         }
-         user {
-            name
-         }
-      }
+   mutation createVotes($optionIds: [ID!]!) {
+      createVotes(optionIds: $optionIds) 
    }
 `;

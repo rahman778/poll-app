@@ -26,7 +26,7 @@ dayjs.extend(relativeTime);
 function PollPage({ params }: { params: { id: string } }) {
    const router = useRouter();
 
-   const [selectedAnswerId, setSelectedAnswerId] = useState<string>("");
+   const [selectedAnswerIds, setSelectedAnswerIds] = useState<string[]>([]);
 
    const {
       loading: pollLoading,
@@ -36,7 +36,7 @@ function PollPage({ params }: { params: { id: string } }) {
       variables: { pollId: params.id },
    });
 
-   const [createVote, { loading: voteLoading }] = useMutation(CREATE_VOTE, {
+   const [createVotes, { loading: voteLoading }] = useMutation(CREATE_VOTE, {
       errorPolicy: "all",
       refetchQueries: [
          {
@@ -51,11 +51,33 @@ function PollPage({ params }: { params: { id: string } }) {
    ): void => {
       const { name, checked, value } = event.target;
 
-      setSelectedAnswerId(name);
+      let newState;
+
+      if (checked) {
+         if (
+            data.poll.allowedVotes !== "unlimit" &&
+            selectedAnswerIds.length == Number(data.poll.allowedVotes)
+         ) {
+            toast.error(
+               `maximum of ${data.poll.allowedVotes} vote(s) allowed`,
+               {
+                  style: {
+                     fontSize: "14px",
+                  },
+               }
+            );
+            return;
+         }
+         newState = [...selectedAnswerIds, name];
+      } else {
+         newState = selectedAnswerIds.filter((item) => item !== name);
+      }
+
+      setSelectedAnswerIds(newState);
    };
 
    const handleVote = async () => {
-      if (!selectedAnswerId) {
+      if (!selectedAnswerIds.length) {
          toast.error("Please select an option", {
             style: {
                fontSize: "14px",
@@ -65,9 +87,9 @@ function PollPage({ params }: { params: { id: string } }) {
       }
 
       try {
-         const { data, errors } = await createVote({
+         const { data, errors } = await createVotes({
             variables: {
-               optionId: selectedAnswerId,
+               optionIds: selectedAnswerIds,
             },
          });
 
@@ -90,6 +112,16 @@ function PollPage({ params }: { params: { id: string } }) {
       return <VoteCardSkeleton />;
    }
 
+   if (dayjs().isAfter(dayjs(data?.poll.deadline))) {
+      return (
+         <div className="mb-10 flex flex-col items-center">
+            <div className="w-full max-w-3xl box mt-12 text-center">
+               <h2 className="text-xl">This poll has expired</h2>
+            </div>
+         </div>
+      );
+   }
+
    return (
       <div className="mb-10 flex flex-col items-center">
          <div className="w-full max-w-3xl box mt-8">
@@ -106,7 +138,7 @@ function PollPage({ params }: { params: { id: string } }) {
                {data?.poll.options.map((option: any) => (
                   <div className="mt-4" key={option.id}>
                      <Checkbox
-                        checked={option.id === selectedAnswerId}
+                        checked={selectedAnswerIds.includes(option.id)}
                         name={option.id.toString()}
                         label={option.answer}
                         onchange={(e) => handleCheckboxChange(e)}

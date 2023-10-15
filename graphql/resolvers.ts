@@ -1,7 +1,7 @@
 import bcrypt from "bcryptjs";
 import { GraphQLError } from "graphql";
 
-import { PrismaClient, User, Poll, Option, Vote } from "@prisma/client";
+import { PrismaClient, User, Poll, Vote } from "@prisma/client";
 
 export type Context = {
    session: any;
@@ -10,9 +10,6 @@ export type Context = {
 
 export const resolvers = {
    Query: {
-      hello: () => {
-         return "World2";
-      },
       poll: async (_: {}, args: Poll, context: Context) => {
          return await context.db.poll.findFirst({
             where: { id: args.id },
@@ -79,47 +76,16 @@ export const resolvers = {
       },
 
       createPoll: async (_: {}, args: any, context: Context) => {
-         if (context.session) {
-            return await context.db.poll.create({
-               data: {
-                  text: args.text,
-                  user: {
-                     connect: { id: context.session.user.id },
-                  },
-                  options: {
-                     create: args.options.map((option: any) => ({
-                        answer: option,
-                     })),
-                  },
-               },
-               include: {
-                  options: true,
-               },
-            });
-         } else {
-            return await context.db.poll.create({
-               data: {
-                  text: args.text,
-                  options: {
-                     create: args.options.map((option: any) => ({
-                        answer: option,
-                     })),
-                  },
-               },
-               include: {
-                  options: true,
-               },
-            });
-         }
-      },
-
-      createVote: async (_: {}, args: any, context: Context) => {
          let userId = context.session?.user.id;
-
          let data: any = {
-            option: {
-               connect: { id: args.optionId },
+            text: args.data.text,
+            options: {
+               create: args.data.options.map((option: any) => ({
+                  answer: option,
+               })),
             },
+            allowedVotes: args.data.allowedVotes,
+            deadline: args.data.deadline,
          };
 
          if (userId) {
@@ -128,15 +94,34 @@ export const resolvers = {
             };
          }
 
-         const vote = await context.db.vote.create({
+         const poll = await context.db.poll.create({
             data: data,
             include: {
-               option: true,
-               user: true
+               options: true,
             },
          });
 
-         return vote;
+         return poll;
+      },
+
+      createVotes: async (_: {}, args: any, context: Context) => {
+         let userId = context.session?.user.id;
+
+         let data = args.optionIds.map((optionId: string) => ({
+            optionId: optionId,
+         }));
+
+         if (userId) {
+            data.user = {
+               connect: { id: userId },
+            };
+         }
+
+         const votes = await context.db.vote.createMany({
+            data: data,
+         });
+
+         return votes.count;
       },
    },
 };

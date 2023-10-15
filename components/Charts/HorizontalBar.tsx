@@ -22,37 +22,46 @@ const PollResults: React.FC<{ pollData: IPollData[] }> = ({ pollData }) => {
 
    const totalVotes = pollData?.reduce((accumulator, option) => {
       return accumulator + option.votes.length;
-    }, 0);
-    
+   }, 0);
 
    return (
       <div>
-         {pollData?.map((option) => (
-            <div className="mb-1" key={option.id}>
-               <div className="text-sm text-gray-500 font-medium mb-1">
-                  {option.answer}
+         {pollData?.map((option) => {
+            const percentage = (
+               (option.votes.length / totalVotes) *
+               100
+            ).toFixed(1);
+
+            console.log('percentage',typeof percentage)
+            return (
+               <div className="mb-1" key={option.id}>
+                  <div className="text-sm text-gray-500 font-medium mb-1">
+                     {option.answer}
+                  </div>
+                  <div className="bg-slate-200 dark:bg-[#2D3748] h-4 relative rounded-xl">
+                     <div
+                        className={`bg-violet-600 h-full absolute top-0 left-0 rounded-xl ${
+                           animationComplete ? "w-full" : ""
+                        }`}
+                        style={{
+                           width: animationComplete
+                              ? `${(option.votes.length / totalVotes) * 100}%`
+                              : "0%",
+                           transition: animationComplete
+                              ? "width 1s ease-in-out"
+                              : "none",
+                        }}
+                     ></div>
+                  </div>
+                  <div className="flex text-gray-500 text-sm justify-end items-center gap-x-2 mt-2">
+                     <div>
+                        { percentage || "0"}%
+                     </div>
+                     <div>({option.votes.length} votes)</div>
+                  </div>
                </div>
-               <div className="bg-slate-200 dark:bg-[#2D3748] h-4 relative rounded-xl">
-                  <div
-                     className={`bg-violet-600 h-full absolute top-0 left-0 rounded-xl ${
-                        animationComplete ? "w-full" : ""
-                     }`}
-                     style={{
-                        width: animationComplete
-                           ? `${(option.votes.length / totalVotes) * 100}%`
-                           : "0%",
-                        transition: animationComplete
-                           ? "width 1s ease-in-out"
-                           : "none",
-                     }}
-                  ></div>
-               </div>
-               <div className="flex text-gray-500 text-sm justify-end items-center gap-x-2 mt-2">
-                  <div>{((option.votes.length / totalVotes) * 100).toFixed(1)}%</div>
-                  <div>({option.votes.length} votes)</div>
-               </div>
-            </div>
-         ))}
+            );
+         })}
       </div>
    );
 };

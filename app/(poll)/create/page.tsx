@@ -6,22 +6,11 @@ import toast from "react-hot-toast";
 
 import { CREATE_POLL } from "@/lib/gql-calls";
 
-import {
-   ArrowUturnRightIcon,
-   XMarkIcon,
-   PlusIcon,
-} from "@heroicons/react/24/outline";
+import { XMarkIcon, PlusIcon } from "@heroicons/react/24/outline";
 
 import AnimateSpin from "@/components/Loaders/AnimateSpin";
-import Checkbox from "@/components/Forms/Checkbox";
-import Dropdown from "@/components/Forms/Dropdown";
-
-import { Setting } from "@/types/Setting";
-
-type Option = {
-   label: string;
-   value: string;
-};
+import SelectSetting from "@/components/Settings/SelectSetting";
+import InputSetting from "@/components/Settings/InputSetting";
 
 type Input = {
    value: string;
@@ -30,22 +19,16 @@ type Input = {
 function CreatePoll() {
    const router = useRouter();
 
-   const [selectedVal, setSelectedVal] = useState<Option>({
-      value: "",
-      label: "",
-   });
    const [inputs, setInputs] = useState<Input[]>([
       { value: "" },
       { value: "" },
       { value: "" },
    ]);
-   const [settings, setSettings] = useState<Setting>({
-      multiple: false,
-      deadline: false,
-   });
 
    const [formValues, setFormValues] = useState({
       question: "",
+      allowedVotes: "",
+      deadline: "",
    });
 
    const [createPoll, { loading }] = useMutation(CREATE_POLL, {
@@ -55,8 +38,8 @@ function CreatePoll() {
    const onSubmit = async (e: React.FormEvent) => {
       e.preventDefault();
 
-      if(!formValues.question) {
-         toast.error('Please type a question', {
+      if (!formValues.question) {
+         toast.error("Please type a question", {
             style: {
                fontSize: "14px",
             },
@@ -64,10 +47,12 @@ function CreatePoll() {
          return;
       }
 
-      const nonEmptyInputs = inputs.filter((input) => input.value.trim() !== '');
+      const nonEmptyInputs = inputs.filter(
+         (input) => input.value.trim() !== ""
+      );
 
       if (nonEmptyInputs.length < 2) {
-         toast.error('There should be atleast 2 options', {
+         toast.error("There should be atleast 2 options", {
             style: {
                fontSize: "14px",
             },
@@ -79,6 +64,8 @@ function CreatePoll() {
          const { data, errors } = await createPoll({
             variables: {
                text: formValues.question,
+               allowedVotes: formValues.allowedVotes,
+               deadline: formValues.deadline,
                options: nonEmptyInputs.map((answer) => answer.value),
             },
          });
@@ -92,19 +79,15 @@ function CreatePoll() {
             return;
          }
 
-         if (data) {
+         if (data.createPoll) {
             router.push(`/${data.createPoll.id}`);
          }
       } catch (error) {}
    };
 
-   const onQuesionTypeSelect = (opt: Option): void => {
-      console.log("opt", opt);
-   };
-
    const addInput = (): void => {
-      if(inputs.length === 8) {
-         toast.error('You can add a maximum of 8 options', {
+      if (inputs.length === 8) {
+         toast.error("You can add a maximum of 8 options", {
             style: {
                fontSize: "14px",
             },
@@ -120,25 +103,13 @@ function CreatePoll() {
       setInputs(newInputs);
    };
 
-   const handleCheckboxChange = (
-      event: ChangeEvent<HTMLInputElement>
-   ): void => {
-      const { name, checked } = event.target;
-
-      setSettings((prevSettings) => ({
-         ...prevSettings,
-         [name]: checked,
-      }));
-   };
-
    const onAnswerChange = (val: string, idx: number) => {
       const newInputs = [...inputs];
       newInputs[idx].value = val;
       setInputs(newInputs);
    };
 
-   const handleChange = (event: ChangeEvent<HTMLInputElement>) => {
-      const { name, value } = event.target;
+   const handleChange = (name: string, value: string) => {
       setFormValues({ ...formValues, [name]: value });
    };
 
@@ -155,7 +126,7 @@ function CreatePoll() {
                      type="text"
                      name="question"
                      value={formValues.question}
-                     onChange={handleChange}
+                     onChange={(e) => handleChange("question", e.target.value)}
                      placeholder="Type your question here"
                      className="input"
                   />
@@ -201,59 +172,41 @@ function CreatePoll() {
                   </h3>
 
                   <div>
-                     <Checkbox
-                        checked={settings.multiple}
-                        name="multiple"
+                     <SelectSetting
+                        name="allowedVotes"
                         label="Allow more than one answer"
-                        onchange={(e) => handleCheckboxChange(e)}
+                        options={[
+                           {
+                              value: "unlimit",
+                              label: "unlimit",
+                           },
+                           {
+                              value: "2",
+                              label: "option 2",
+                           },
+                           {
+                              value: "3",
+                              label: "option 3",
+                           },
+                        ]}
+                        selectedOption={formValues.allowedVotes}
+                        handleSelect={(val) => handleChange("allowedVotes", val)}
+                        placeholder={"Number of allowed answers"}
+                        resetValue={handleChange}
                      />
-                     {settings.multiple && (
-                        <div className="flex items-center gap-x-4 max-w-md mt-3">
-                           <ArrowUturnRightIcon className="w-5 h-5 text-gray-400 stroke-[3]" />
-                           <Dropdown
-                              options={[
-                                 {
-                                    value: "unlimit",
-                                    label: "unlimit",
-                                 },
-                                 {
-                                    value: "2",
-                                    label: "option 2",
-                                 },
-                                 {
-                                    value: "3",
-                                    label: "option 3",
-                                 },
-                              ]}
-                              name="type"
-                              selectedItem={selectedVal}
-                              placeholder="Number of allowed answers"
-                              handleOptionClick={(opt) =>
-                                 onQuesionTypeSelect(opt)
-                              }
-                           />
-                        </div>
-                     )}
                   </div>
 
-                  <div className="">
-                     <Checkbox
-                        checked={settings.deadline}
+                  <div>
+                     <InputSetting
                         name="deadline"
                         label="Close poll on a scheduled date"
-                        onchange={(e) => handleCheckboxChange(e)}
+                        type="date"
+                        value={formValues.deadline}
+                        onChange={(e) =>
+                           handleChange("deadline", e.target.value)
+                        }
+                        resetValue={handleChange}
                      />
-                     {settings.deadline && (
-                        <div className="flex items-center gap-x-4 max-w-md mt-3">
-                           <ArrowUturnRightIcon className="w-5 h-5 text-gray-400 stroke-[3]" />
-                           <input
-                              type="datetime-local"
-                              className="input dark:[color-scheme:dark]"
-                              name=""
-                              id=""
-                           />
-                        </div>
-                     )}
                   </div>
                </div>
                <div className="flex justify-end mt-6">

@@ -16,6 +16,8 @@ export const typeDefs = `#graphql
       id: ID!
       text: String!
       createdAt: DateTime
+      allowedVotes: String
+      deadline: String
       user: User
       options: [Option]
    }
@@ -36,13 +38,19 @@ export const typeDefs = `#graphql
    }
 
    type Query {
-      hello: String
       poll(id: ID!): Poll
+   }
+
+   input PollCreateInput {
+      text: String!
+      options: [String]!
+      allowedVotes: String
+      deadline: String
    }
 
    type Mutation {
       signup(email: String!, password: String!, name: String!): User
-      createPoll(text: String!, options: [String]!): Poll
-      createVote(optionId: ID!): Vote
+      createPoll(data: PollCreateInput): Poll
+      createVotes(optionIds: [ID!]!): Int!
    }
 `;

@@ -35,6 +35,22 @@ const PieChart: React.FC<{ pollData: IPollData[] }> = ({ pollData }) => {
    }, [pollData]);
 
    const lineWidth = 60;
+
+   const totalVotes = pollData?.reduce((accumulator, option) => {
+      return accumulator + option.votes.length;
+   }, 0);
+
+   if (totalVotes === 0) {
+      return (
+         <>
+            <div className="rounded-full bg-slate-300 dark:bg-slate-700 h-52 w-52"></div>
+            <p className="text-xs text-center mt-2 mb-0 text-slate-400 dark:text-slate-700">
+               A pie chart will be rendered here
+            </p>
+         </>
+      );
+   }
+
    return (
       <Chart
          data={formattedData}
