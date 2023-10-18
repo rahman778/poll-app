@@ -54,7 +54,7 @@ const AuthLayout: React.FC<IProps> = (props) => {
                </div>
 
                <div className="mt-8 sm:mx-auto sm:w-full sm:max-w-md space-y-8">
-                  <div className="box">{children}</div>
+                  <div className=" box">{children}</div>
                </div>
             </div>
          </main>
