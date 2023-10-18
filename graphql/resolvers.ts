@@ -1,7 +1,7 @@
 import bcrypt from "bcryptjs";
 import { GraphQLError } from "graphql";
 
-import { PrismaClient, User, Poll, Vote } from "@prisma/client";
+import { PrismaClient, User, Poll, Vote, Option, Prisma } from "@prisma/client";
 
 export type Context = {
    session: any;
@@ -76,12 +76,20 @@ export const resolvers = {
          return user;
       },
 
-      createPoll: async (_: {}, args: any, context: Context) => {
+      createPoll: async (
+         _: {},
+         args: {
+            data: Prisma.PollCreateInput & {
+               options: Option[];
+            };
+         },
+         context: Context
+      ) => {
          let userId = context.session?.user.id;
          let data: any = {
             text: args.data.text,
             options: {
-               create: args.data.options.map((option: any) => ({
+               create: args.data.options?.map((option: Option) => ({
                   answer: option,
                })),
             },
@@ -105,25 +113,31 @@ export const resolvers = {
          return poll;
       },
 
-      createVotes: async (_: {}, args: any, context: Context) => {
-          let userId = context.session?.user.id;
-          let userAgent = context.req.headers.get("user-agent")
+      createVotes: async (
+         _: {},
+         args: Prisma.VoteCreateInput & {
+            optionIds: string[];
+         },
+         context: Context
+      ) => {
+         let userId = context.session?.user.id;
+         let userAgent = context.req.headers.get("user-agent");
 
-          const existingVote = await context.db.vote.findFirst({
+         const existingVote = await context.db.vote.findFirst({
             where: {
-              pollId: args.pollId,
-              userAgent,
+               pollId: args.pollId,
+               userAgent,
             },
-          });
+         });
 
-          if(existingVote) {
+         if (existingVote) {
             throw new GraphQLError("You already voted on this poll.");
-          }
+         }
 
-         let data = args.optionIds.map((optionId: string) => ({
+         let data: any = args.optionIds.map((optionId: string) => ({
             optionId: optionId,
             userAgent,
-            pollId: args.pollId
+            pollId: args.pollId,
          }));
 
          if (userId) {

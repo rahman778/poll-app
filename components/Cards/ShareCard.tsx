@@ -1,8 +1,8 @@
 import React from "react";
 import toast from "react-hot-toast";
-import { EyeIcon, ShareIcon } from "@heroicons/react/24/outline";
+import { ShareIcon } from "@heroicons/react/24/outline";
 
-import CopyText from "@/components/Forms/CopyText";
+import { CopyText } from "@/components/Forms";
 
 type IProps = {
    value: string;

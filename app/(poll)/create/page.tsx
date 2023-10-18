@@ -1,5 +1,5 @@
 "use client";
-import React, { useState, ChangeEvent } from "react";
+import React, { useState } from "react";
 import { useMutation } from "@apollo/client";
 import { useRouter } from "next/navigation";
 import toast from "react-hot-toast";
@@ -9,8 +9,7 @@ import { CREATE_POLL } from "@/lib/gql-calls";
 import { XMarkIcon, PlusIcon } from "@heroicons/react/24/outline";
 
 import AnimateSpin from "@/components/Loaders/AnimateSpin";
-import SelectSetting from "@/components/Settings/SelectSetting";
-import InputSetting from "@/components/Settings/InputSetting";
+import { InputSetting, SelectSetting } from "@/components/Settings";
 
 type Input = {
    value: string;

@@ -2,13 +2,14 @@ import Link from "next/link";
 import { signOut, useSession } from "next-auth/react";
 
 import ThemeButton from "@/components/Buttons/ThemeButton";
+import { Logo } from "@/components/Navigation";
 
 import { Route } from "@/types/Route";
 
-interface IProps {
+type IProps = {
    children: React.ReactNode;
    routes: Route[];
-}
+};
 
 const DesktopNavbar: React.FC<IProps> = ({ children, routes }) => {
    const { data: session } = useSession();
@@ -21,9 +22,9 @@ const DesktopNavbar: React.FC<IProps> = ({ children, routes }) => {
                <div className="flex truncate">
                   <Link
                      href="/"
-                     className="flex items-center flex-shrink-0 text-gray-700 dark:text-gray-200"
+                     className="flex items-center flex-shrink-0 text-gray-700 dark:text-gray-200 mt-[3px]"
                   >
-                     logo
+                     <Logo />
                   </Link>
                   <div className="hidden lg:ml-8 lg:flex lg:space-x-8">
                      {routes.map((route) => (
@@ -40,10 +41,10 @@ const DesktopNavbar: React.FC<IProps> = ({ children, routes }) => {
                <div className="flex items-center ">
                   <ThemeButton />
                   <div className="hidden lg:ml-2 lg:flex lg:items-center">
-                     { user ? (
+                     {user ? (
                         <li
                            className="button transparent-btn"
-                           onClick={() => signOut({ callbackUrl: '/' })}
+                           onClick={() => signOut({ callbackUrl: "/" })}
                         >
                            Logout
                         </li>

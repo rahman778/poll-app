@@ -11,17 +11,15 @@ const colorCodes = [
    "#e11d48",
    "#0000ff",
    "#ffff00",
-   "#800080",
-   "#ffa500",
 ];
 
-interface IPollData {
+type IPollData = {
    id: string;
    answer: string;
    votes: {
       id: string;
    }[];
-}
+};
 
 const PieChart: React.FC<{ pollData: IPollData[] }> = ({ pollData }) => {
    const [selected, setSelected] = useState<number | undefined>(0);

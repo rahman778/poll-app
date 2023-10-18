@@ -4,21 +4,18 @@ import { useRouter } from "next/navigation";
 import { useQuery } from "@apollo/client";
 import dayjs from "dayjs";
 import relativeTime from "dayjs/plugin/relativeTime";
+import { NetworkStatus } from "@apollo/client";
 
 import { GET_RESULT } from "@/lib/gql-calls";
 
-import AnimateSpin from "@/components/Loaders/AnimateSpin";
-import HorizontalBar from "@/components/Charts/HorizontalBar";
-import PieChart from "@/components/Charts/PieChart";
-import ShareCard from "@/components/Cards/ShareCard";
-import ResultCardSkeleton from "@/components/Skeletons/ResultCardSkeleton";
-import ShareCardSkeleton from "@/components/Skeletons/ShareCardSkeleton";
-
 import { ArrowSmallLeftIcon, ArrowPathIcon } from "@heroicons/react/24/outline";
 
-dayjs.extend(relativeTime);
+import AnimateSpin from "@/components/Loaders/AnimateSpin";
+import { PieChart, HorizontalBar } from "@/components/Charts";
+import ShareCard from "@/components/Cards/ShareCard";
+import { ResultCardSkeleton, ShareCardSkeleton } from "@/components/Skeletons";
 
-import { NetworkStatus } from "@apollo/client";
+dayjs.extend(relativeTime);
 
 function ResultsPage({ params }: { params: { id: string } }) {
    const router = useRouter();
@@ -46,7 +43,7 @@ function ResultsPage({ params }: { params: { id: string } }) {
    return (
       <div className="mb-10 flex flex-col items-center">
          <div className="w-full max-w-3xl box mt-8">
-            <h1 className="strawpoll-title text-2xl text-gray-900 dark:text-gray-200 font-medium break-words">
+            <h1 className="text-2xl text-gray-900 dark:text-gray-200 font-medium break-words">
                {data?.poll.text}
             </h1>
             <div className="mt-2 text-sm text-gray-500">

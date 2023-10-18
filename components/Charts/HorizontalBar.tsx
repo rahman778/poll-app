@@ -1,14 +1,14 @@
 import React, { useEffect, useState } from "react";
 
-interface IPollData {
+type IPollData = {
    id: string;
    answer: string;
    votes: {
       id: string;
    }[];
-}
+};
 
-const PollResults: React.FC<{ pollData: IPollData[] }> = ({ pollData }) => {
+const HorizontalBar: React.FC<{ pollData: IPollData[] }> = ({ pollData }) => {
    const [animationComplete, setAnimationComplete] = useState<boolean>(false);
 
    useEffect(() => {
@@ -27,12 +27,11 @@ const PollResults: React.FC<{ pollData: IPollData[] }> = ({ pollData }) => {
    return (
       <div>
          {pollData?.map((option) => {
-            const percentage = (
-               (option.votes.length / totalVotes) *
-               100
-            ).toFixed(1);
+            const percentage =
+               totalVotes > 0
+                  ? ((option.votes.length / totalVotes) * 100).toFixed(1)
+                  : 0;
 
-            console.log('percentage',typeof percentage)
             return (
                <div className="mb-1" key={option.id}>
                   <div className="text-sm text-gray-500 font-medium mb-1">
@@ -54,9 +53,7 @@ const PollResults: React.FC<{ pollData: IPollData[] }> = ({ pollData }) => {
                      ></div>
                   </div>
                   <div className="flex text-gray-500 text-sm justify-end items-center gap-x-2 mt-2">
-                     <div>
-                        { percentage || "0"}%
-                     </div>
+                     <div>{percentage || "0"}%</div>
                      <div>({option.votes.length} votes)</div>
                   </div>
                </div>
@@ -66,4 +63,4 @@ const PollResults: React.FC<{ pollData: IPollData[] }> = ({ pollData }) => {
    );
 };
 
-export default PollResults;
+export default HorizontalBar;

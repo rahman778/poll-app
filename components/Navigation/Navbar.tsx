@@ -3,13 +3,9 @@
 import React, { useState } from "react";
 import { signOut, useSession } from "next-auth/react";
 import Link from "next/link";
-import {
-   ChartPieIcon,
-   CalendarDaysIcon,
-   XMarkIcon,
-} from "@heroicons/react/24/outline";
+import { ChartPieIcon, XMarkIcon } from "@heroicons/react/24/outline";
 
-import DesktopNavbar from "@/components/Navigation/DesktopNavbar";
+import { DesktopNavbar, Logo } from "@/components/Navigation";
 
 import { Route } from "@/types/Route";
 
@@ -20,14 +16,14 @@ const routes: Route[] = [
       path: "/create",
       icon: <ChartPieIcon className="h-5 w-5 text-violet-500 flex-shrink" />,
    },
-   {
-      id: 2,
-      label: "Schedule Meeting",
-      path: "/",
-      icon: (
-         <CalendarDaysIcon className="h-5 w-5 text-violet-500 flex-shrink" />
-      ),
-   },
+   // {
+   //    id: 2,
+   //    label: "Schedule Meeting",
+   //    path: "/",
+   //    icon: (
+   //       <CalendarDaysIcon className="h-5 w-5 text-violet-500 flex-shrink" />
+   //    ),
+   // },
 ];
 
 const links: Route[] = [
@@ -108,7 +104,7 @@ const Navbar: React.FC = ({}) => {
                            href="/"
                            className="flex-shrink-0 flex items-center text-gray-900 dark:text-white"
                         >
-                           Poll App
+                           <Logo />
                         </Link>
                      </div>
                   </div>
@@ -145,7 +141,7 @@ const Navbar: React.FC = ({}) => {
                      {user ? (
                         <li
                            className="button light-btn w-full flex items-center justify-center px-4 py-3"
-                           onClick={() => signOut({ callbackUrl: '/' })}
+                           onClick={() => signOut({ callbackUrl: "/" })}
                         >
                            Logout
                         </li>
@@ -158,7 +154,7 @@ const Navbar: React.FC = ({}) => {
                               Signup
                            </Link>
                            <p className="mt-6 text-center text-sm font-medium text-gray-500">
-                              Existing user ? <Link href="/">login</Link>
+                              Existing user ? <Link href="/login">login</Link>
                            </p>
                         </>
                      )}

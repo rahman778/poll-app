@@ -43,7 +43,7 @@ export const typeDefs = `#graphql
 
    input PollCreateInput {
       text: String!
-      options: [String]!
+      options: [String!]!
       allowedVotes: String
       deadline: String
    }

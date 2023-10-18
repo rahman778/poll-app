@@ -1,17 +1,18 @@
 import Link from "next/link";
 
+import { Logo } from "@/components/Navigation";
 import ThemeButton from "@/components/Buttons/ThemeButton";
 
-interface IProps {
+type IProps = {
    isLogin: boolean;
    children: React.ReactNode;
-}
+};
 
 const AuthLayout: React.FC<IProps> = (props) => {
    const { isLogin, children } = props;
    return (
       <>
-         <div className="hidden sm:flex sm:justify-end p-4">
+         <div className="flex justify-end p-4">
             <div className="flex items-center text-sm space-x-4">
                <ThemeButton />
                <span>
@@ -31,6 +32,9 @@ const AuthLayout: React.FC<IProps> = (props) => {
          <main className="text-gray-600 dark:text-gray-400 min-h-[93vh] flex flex-col justify-center mx-2 sm:mx-0">
             <div className="flex flex-col justify-center mt-0 py-6 sm:px-6 lg:px-8">
                <div className="sm:mx-auto sm:w-full sm:max-w-md">
+                  <Link href="/" className="flex justify-center">
+                     <Logo width={150} />
+                  </Link>
                   <h2 className="mt-6 text-center text-3xl font-semibold text-gray-900 dark:text-white">
                      {isLogin
                         ? "Log in to your account"

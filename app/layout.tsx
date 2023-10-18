@@ -1,9 +1,9 @@
 import type { Metadata } from "next";
 import { Poppins } from "next/font/google";
+import { Toaster } from "react-hot-toast";
+
 import "@/app/globals.css";
 import Providers from "@/app/Providers";
-
-import { Toaster } from "react-hot-toast";
 
 const poppins = Poppins({
    weight: ["400", "500", "600", "700"],
@@ -11,9 +11,9 @@ const poppins = Poppins({
 });
 
 export const metadata: Metadata = {
-   title: "SnapPoll",
+   title: "PulsePoll",
    description:
-      "Engage in meaningful polls and surveys on SnapPoll. Cast your vote, express your opinions, and see real-time results. Join the community and make your voice heard!",
+      "Engage in meaningful polls and surveys on PulsePoll. Cast your vote, express your opinions, and see real-time results. Join the community and make your voice heard!",
 };
 
 export default function RootLayout({

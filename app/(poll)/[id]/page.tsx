@@ -12,10 +12,9 @@ import { CREATE_VOTE, GET_POLL, GET_RESULT } from "@/lib/gql-calls";
 import { ArrowSmallRightIcon, ChartPieIcon } from "@heroicons/react/24/outline";
 
 import AnimateSpin from "@/components/Loaders/AnimateSpin";
-import Checkbox from "@/components/Forms/Checkbox";
+import { Checkbox } from "@/components/Forms";
 import ShareCard from "@/components/Cards/ShareCard";
-import VoteCardSkeleton from "@/components/Skeletons/VoteCardSkeleton";
-import ShareCardSkeleton from "@/components/Skeletons/ShareCardSkeleton";
+import { VoteCardSkeleton, ShareCardSkeleton } from "@/components/Skeletons";
 
 dayjs.extend(relativeTime);
 
@@ -111,7 +110,7 @@ function PollPage({ params }: { params: { id: string } }) {
    return (
       <div className="mb-10 flex flex-col items-center">
          <div className="w-full max-w-3xl box mt-8">
-            <h1 className="strawpoll-title text-2xl text-gray-900 dark:text-gray-200 font-medium break-words">
+            <h1 className="text-2xl text-gray-900 dark:text-gray-200 font-medium break-words">
                {data?.poll.text}
             </h1>
             <div className="mt-2 text-sm text-gray-500">
