@@ -11,12 +11,15 @@ export default function Home() {
                   Your Opinions, Instant Impact
                </div>
                <p className="lg:text-lg 2xl:text-xl mt-6 lg:mt-10">
-                  Snap poll empowers you to express your viewpoints and see
+                  Pulse poll empowers you to express your viewpoints and see
                   real-time results. Engage in meaningful discussions, share
                   your thoughts, and witness the immediate impact of your
                   opinions.
                </p>
-               <Link href="/create" className="button primary-btn text-base py-2.5 px-6 mt-8 lg:mt-10">
+               <Link
+                  href="/create"
+                  className="button primary-btn text-base py-2.5 px-6 mt-8 lg:mt-10"
+               >
                   Create a poll
                </Link>
             </div>
@@ -28,9 +31,6 @@ export default function Home() {
                   alt="Picture of the author"
                />
             </div>
-         </div>
-         <div className="mt-10">
-            <div>Lorem ipsum dollar</div>
          </div>
       </section>
    );

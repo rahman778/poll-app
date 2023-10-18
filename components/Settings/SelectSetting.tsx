@@ -2,8 +2,7 @@ import React, { useState } from "react";
 
 import { ArrowUturnRightIcon } from "@heroicons/react/24/outline";
 
-import Checkbox from "@/components/Forms/Checkbox";
-import Dropdown from "@/components/Forms/Dropdown";
+import { Checkbox, Dropdown } from "@/components/Forms";
 
 interface Option {
    value: string;
@@ -17,12 +16,19 @@ type IProps = {
    selectedOption: string;
    placeholder: string;
    handleSelect: (val: string) => void;
-   resetValue: (name:string, _:string) => void;
+   resetValue: (name: string, _: string) => void;
 };
 
 const SelectSetting: React.FC<IProps> = (props) => {
-   const { label, name, options, selectedOption, placeholder, handleSelect, resetValue } =
-      props;
+   const {
+      label,
+      name,
+      options,
+      selectedOption,
+      placeholder,
+      handleSelect,
+      resetValue,
+   } = props;
 
    const [active, setActive] = useState(false);
 
@@ -31,10 +37,10 @@ const SelectSetting: React.FC<IProps> = (props) => {
    ): void => {
       setActive(e.target.checked);
 
-        // reset the value if active false
-        if(!e.target.checked) {
-            resetValue(name, "");
-         }
+      // reset the value if active false
+      if (!e.target.checked) {
+         resetValue(name, "");
+      }
    };
 
    return (

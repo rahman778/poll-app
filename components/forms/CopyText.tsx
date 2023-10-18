@@ -3,7 +3,7 @@
 import React from "react";
 import { ClipboardIcon } from "@heroicons/react/24/outline";
 
-interface IProps {
+type IProps = {
    value: string;
    handleCopyClick: (value: string) => void;
 }

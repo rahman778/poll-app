@@ -2,7 +2,7 @@ import React, { useState } from "react";
 
 import { ArrowUturnRightIcon } from "@heroicons/react/24/outline";
 
-import Checkbox from "@/components/Forms/Checkbox";
+import { Checkbox } from "@/components/Forms";
 
 type IProps = {
    label: string;
@@ -10,7 +10,7 @@ type IProps = {
    value: string;
    type?: string;
    onChange: (e: React.ChangeEvent<HTMLInputElement>) => void;
-   resetValue: (name:string, _:string) => void;
+   resetValue: (name: string, _: string) => void;
 };
 
 const InputSetting: React.FC<IProps> = (props) => {
@@ -24,7 +24,7 @@ const InputSetting: React.FC<IProps> = (props) => {
       setActive(e.target.checked);
 
       // reset the value if active false
-      if(!e.target.checked) {
+      if (!e.target.checked) {
          resetValue(name, "");
       }
    };

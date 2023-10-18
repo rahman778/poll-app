@@ -1,6 +1,6 @@
 import React from "react";
 
-interface IProps {
+type IProps = {
    checked: boolean;
    label?: string;
    name: string;
