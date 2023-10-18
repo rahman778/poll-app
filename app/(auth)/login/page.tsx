@@ -5,12 +5,15 @@ import Link from "next/link";
 import { useRouter } from "next/navigation";
 import { signIn } from "next-auth/react";
 import toast from "react-hot-toast";
+import SVG from "react-inlinesvg";
+import { useTheme } from "next-themes";
 
 import AuthLayout from "@/components/Layout/AuthLayout";
 import AnimateSpin from "@/components/Loaders/AnimateSpin";
 
 function LoginPage() {
    const router = useRouter();
+   const { theme } = useTheme();
 
    const [loading, setLoading] = useState(false);
    const [formValues, setFormValues] = useState({
@@ -119,8 +122,36 @@ function LoginPage() {
                   </span>
                </div>
             </div>
-
-            <div className="mt-6 grid grid-cols-1 gap-3"></div>
+            <div className="mt-6 grid grid-cols-1 gap-3">
+               <div>
+                  <button
+                     onClick={() => signIn("google", { callbackUrl: "/" })}
+                     className="button light-btn w-full py-2 flex items-center"
+                  >
+                     <SVG
+                        src="/google.svg"
+                        style={{ fill: theme === "light" ? "#000" : "#fff" }}
+                        width={25}
+                        height={25}
+                     />
+                     <span className="ml-3">Google</span>
+                  </button>
+               </div>
+               <div>
+                  <button
+                     onClick={() => signIn("github", { callbackUrl: "/" })}
+                     className="button light-btn w-full py-2 flex items-center"
+                  >
+                     <SVG
+                        src="/github.svg"
+                        style={{ fill: theme === "light" ? "#000" : "#fff" }}
+                        width={25}
+                        height={25}
+                     />
+                     <span className="ml-3">Github</span>
+                  </button>
+               </div>
+            </div>
          </div>
       </AuthLayout>
    );
