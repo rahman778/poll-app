@@ -1,7 +1,7 @@
 "use client";
 
 import React, { useState } from "react";
-import { useRouter } from "next/navigation";
+import { useRouter, notFound } from "next/navigation";
 import { useMutation, useQuery } from "@apollo/client";
 import toast from "react-hot-toast";
 import dayjs from "dayjs";
@@ -95,6 +95,10 @@ function PollPage({ params }: { params: { id: string } }) {
             <VoteCardSkeleton /> <ShareCardSkeleton />
          </>
       );
+   }
+
+   if (error || data.poll === null) {
+      notFound();
    }
 
    if (dayjs().isAfter(dayjs(data?.poll.deadline))) {
