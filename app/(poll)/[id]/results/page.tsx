@@ -1,6 +1,6 @@
 "use client";
 
-import { useRouter } from "next/navigation";
+import { useRouter, notFound } from "next/navigation";
 import { useQuery } from "@apollo/client";
 import dayjs from "dayjs";
 import relativeTime from "dayjs/plugin/relativeTime";
@@ -40,26 +40,31 @@ function ResultsPage({ params }: { params: { id: string } }) {
       );
    }
 
+   if (error || data.poll === null) {
+      notFound();
+   }
+
+
    return (
       <div className="mb-10 flex flex-col items-center">
          <div className="w-full max-w-3xl box mt-8">
             <h1 className="text-2xl text-gray-900 dark:text-gray-200 font-medium break-words">
-               {data?.poll.text}
+               {data?.poll?.text}
             </h1>
             <div className="mt-2 text-sm text-gray-500">
                {`${
                   data?.poll?.user
                      ? `${data?.poll?.user?.name} `
                      : "by a guest "
-               } · ${dayjs(data?.poll.createdAt).fromNow()}`}
+               } · ${dayjs(data?.poll?.createdAt).fromNow()}`}
             </div>
             <div className="md:flex items-center md:gap-x-6 space-y-8">
                <div className="flex-grow mt-4">
-                  <HorizontalBar pollData={data?.poll.options} />
+                  <HorizontalBar pollData={data?.poll?.options} />
                </div>
                <div className="flex-shrink-0 relative">
                   <div className="max-w-[275px] mx-auto">
-                     <PieChart pollData={data?.poll.options} />
+                     <PieChart pollData={data?.poll?.options} />
                   </div>
                </div>
             </div>
