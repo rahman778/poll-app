@@ -2,26 +2,44 @@
 @tailwind components;
 @tailwind utilities;
 
-:root {
-  --foreground-rgb: 0, 0, 0;
-  --background-start-rgb: 214, 219, 220;
-  --background-end-rgb: 255, 255, 255;
+@layer components {
+   .button {
+      @apply inline-flex cursor-pointer items-center justify-center rounded-md border border-transparent py-2 px-4 text-sm font-medium;
+   }
+
+   .primary-btn {
+      @apply text-gray-100 bg-violet-600 hover:bg-violet-700 disabled:opacity-50 disabled:hover:bg-violet-600;
+   }
+
+   .secondary-btn {
+      @apply text-slate-400 bg-[#ffffff0d] border border-gray-300 dark:border-gray-700 dark:hover:border-transparent hover:border-gray-200;
+   }
+
+   .transparent-btn {
+      @apply text-gray-600 dark:text-gray-400 hover:text-violet-600 dark:hover:text-violet-600 font-medium;
+   }
+
+   .light-btn {
+      @apply text-gray-700 dark:text-gray-100 bg-gray-200 dark:bg-gray-700 hover:bg-opacity-80 dark:hover:bg-opacity-80  border border-gray-300 dark:border-gray-800
+   }
+
+   .input {
+      @apply py-3.5 px-4 text-sm text-gray-600 dark:text-gray-100 bg-slate-100 dark:bg-[#2D3748] rounded-md  w-full placeholder-slate-400 focus:outline-none focus:border-violet-500 focus:ring-1 focus:ring-violet-400;
+   }
+
+   .link {
+      @apply text-sm text-violet-700 
+   }
+
+   .box {
+      @apply bg-white dark:bg-gray-900 shadow-sm ring-1 ring-gray-300 dark:ring-gray-700 rounded-md px-4 py-5 sm:p-6 lg:p-8 
+   }
+   .label {
+      @apply text-gray-600 dark:text-gray-100 text-sm
+   }
 }
 
-@media (prefers-color-scheme: dark) {
-  :root {
-    --foreground-rgb: 255, 255, 255;
-    --background-start-rgb: 0, 0, 0;
-    --background-end-rgb: 0, 0, 0;
-  }
-}
-
-body {
-  color: rgb(var(--foreground-rgb));
-  background: linear-gradient(
-      to bottom,
-      transparent,
-      rgb(var(--background-end-rgb))
-    )
-    rgb(var(--background-start-rgb));
+::selection {
+   background: #4338ca;
+   color: white;
 }
