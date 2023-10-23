@@ -1,28 +1,17 @@
 import { getToken } from "next-auth/jwt";
-import { withAuth } from "next-auth/middleware";
-import { NextFetchEvent, NextRequest, NextResponse } from "next/server";
+import { NextRequest, NextResponse } from "next/server";
 
-export default async function middleware(
-   req: NextRequest,
-   event: NextFetchEvent
-) {
+export default async function middleware(req: NextRequest) {
    const token = await getToken({ req });
    const isAuthenticated = !!token;
 
-   if (req.nextUrl.pathname.startsWith("/login") && isAuthenticated) {
-      return NextResponse.redirect(new URL("/", req.url));
+   if (isAuthenticated && req.nextUrl.pathname.startsWith("/login")) {
+      const absoluteURL = new URL("/", req.nextUrl.origin);
+      return NextResponse.redirect(absoluteURL.toString());
    }
 
-   if (req.nextUrl.pathname.startsWith("/signup") && isAuthenticated) {
-      return NextResponse.redirect(new URL("/", req.url));
+   if (isAuthenticated && req.nextUrl.pathname.startsWith("/signup")) {
+      const absoluteURL = new URL("/", req.nextUrl.origin);
+      return NextResponse.redirect(absoluteURL.toString());
    }
-
-   const authMiddleware = await withAuth({
-      pages: {
-         signIn: `/login`,
-      },
-   });
-
-   // @ts-expect-error
-   return authMiddleware(req, event);
 }
