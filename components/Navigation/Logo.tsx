@@ -1,4 +1,4 @@
-"use client"
+"use client";
 
 import React from "react";
 import Image from "next/image";
@@ -11,17 +11,24 @@ type IProps = {
 
 const Logo: React.FC<IProps> = (props) => {
    const { width = 100, height = 50 } = props;
-   
-   const { theme } = useTheme();
 
-   return (
-      <Image
-         src={theme === "light" ? "/logo-light.svg" : "/logo-dark.svg"}
-         width={width}
-         height={height}
-         alt="logo"
-      />
-   );
+   const { resolvedTheme } = useTheme();
+
+   let src;
+
+   switch (resolvedTheme) {
+      case "light":
+         src = "/logo-light.svg";
+         break;
+      case "dark":
+         src = "/logo-dark.svg";
+         break;
+      default:
+         src = "/logo-light.svg";
+         break;
+   }
+
+   return <Image src={src} width={width} height={height} alt="logo" />;
 };
 
 export default Logo;

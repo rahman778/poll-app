@@ -13,7 +13,7 @@ import AnimateSpin from "@/components/Loaders/AnimateSpin";
 
 function LoginPage() {
    const router = useRouter();
-   const { theme } = useTheme();
+   const { resolvedTheme } = useTheme();
 
    const [loading, setLoading] = useState(false);
    const [formValues, setFormValues] = useState({
@@ -49,6 +49,20 @@ function LoginPage() {
       const { name, value } = event.target;
       setFormValues({ ...formValues, [name]: value });
    };
+
+   let fill;
+
+   switch (resolvedTheme) {
+      case "light":
+         fill = "#000";
+         break;
+      case "dark":
+         fill = "#fff";
+         break;
+      default:
+         fill = "#F87171";
+         break;
+   }
 
    return (
       <AuthLayout isLogin={true}>
@@ -130,7 +144,7 @@ function LoginPage() {
                   >
                      <SVG
                         src="/google.svg"
-                        style={{ fill: theme === "light" ? "#000" : "#fff" }}
+                        style={{ fill }}
                         width={25}
                         height={25}
                      />
@@ -144,7 +158,7 @@ function LoginPage() {
                   >
                      <SVG
                         src="/github.svg"
-                        style={{ fill: theme === "light" ? "#000" : "#fff" }}
+                        style={{ fill }}
                         width={25}
                         height={25}
                      />
