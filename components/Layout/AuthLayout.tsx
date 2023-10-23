@@ -12,7 +12,7 @@ const AuthLayout: React.FC<IProps> = (props) => {
    const { isLogin, children } = props;
    return (
       <>
-         <div className="flex justify-end p-4">
+         <div className="hidden md:flex justify-end p-4">
             <div className="flex items-center text-sm space-x-4">
                <ThemeButton />
                <span>
